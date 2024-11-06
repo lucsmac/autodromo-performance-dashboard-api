@@ -1,1 +1,3 @@
-console.log(() => 'terceiro teste')
+console.log(() => {
+  return "terceiro teste"
+});
