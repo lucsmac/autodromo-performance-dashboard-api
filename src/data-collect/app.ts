@@ -2,7 +2,6 @@ import { JobsOptions } from "bullmq";
 import myQueue from "./queues/my-queue";
 
 const defaultConfig: JobsOptions = {
-  delay: 2000,
   removeOnComplete: {
     age: 3600,
     count: 1000,
@@ -13,25 +12,9 @@ const defaultConfig: JobsOptions = {
 }
 
 async function addJobs() {
-  // await myQueue.add('job1', { message: 'Este é o primeiro job!' }, {
-  //   ...defaultConfig,
-  //   repeat: {
-  //     every: 5 * 1000, 
-  //     limit: 5
-  //   }
-  // })
-  // await myQueue.add('job2', { message: 'Este é o segundo job!' }, { ...defaultConfig, delay: 4000 })
-  
-  // const name = 'jobName';
-  // const jobs = await myQueue.addBulk([
-  //   { name, data: { paint: 'car' } },
-  //   { name, data: { paint: 'house' } },
-  //   { name, data: { paint: 'boat' } },
-  // ]);
-
-  await myQueue.add('getPerformance', { message: 'Este é o segundo job!' }, defaultConfig )
+  await myQueue.add('getPerformance', { channelUrl: 'https://testes.autodromo.app/turbo-dealer', channelTheme: 'showroom' }, defaultConfig )
 }
 
 addJobs().then(() => {
-  console.log('Jobs adicionados à fila')
+  console.log('Jobs added to queue')
 })
