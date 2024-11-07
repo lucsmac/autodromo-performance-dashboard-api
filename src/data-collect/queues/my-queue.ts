@@ -2,7 +2,7 @@ import { Queue } from 'bullmq'
 import { RedisOptions } from 'ioredis'
 
 const redisOptions: RedisOptions = {
-  host: 'localhost',
+  host: 'redis',
   port: 6379,
 }
 

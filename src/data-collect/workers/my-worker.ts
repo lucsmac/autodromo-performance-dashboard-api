@@ -3,7 +3,7 @@ import { RedisOptions } from 'ioredis'
 import { getChannelMetrics } from '../jobs/get-channel-metrics'
 
 const redisOptions: RedisOptions = {
-  host: 'localhost',
+  host: 'redis',
   port: 6379
 }
 
