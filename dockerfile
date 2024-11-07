@@ -2,7 +2,8 @@
 FROM node:lts
 
 # Define o diretório de trabalho na imagem
-WORKDIR /src
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
 # Copia o arquivo package.json e package-lock.json (se existir) para instalar as dependências
 COPY package*.json ./

@@ -32,6 +32,9 @@ services:
       - MONGO_URI=mongodb://mongo:27017/mydatabase
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+    volumes:
+      - ./src:/usr/src/app/src
+      - /usr/src/app/node_modules
     depends_on:
       - mongo
       - redis
