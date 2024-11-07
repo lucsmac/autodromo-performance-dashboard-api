@@ -1,5 +1,5 @@
 # Usando a imagem oficial do Node.js
-FROM node:16
+FROM node:lts
 
 # Define o diretório de trabalho na imagem
 WORKDIR /src
