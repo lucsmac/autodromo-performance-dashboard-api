@@ -5,7 +5,7 @@ export const setUpQuery = (url: string): string => {
   const category = 'performance';
   const strategy = 'mobile'
 
-  const query = `${api}?url=${targetUrl}&key=${key}&category=${category}&strategy=${strategy}`;
+  const query = `${api}?url=https://${targetUrl}&key=${key}&category=${category}&strategy=${strategy}`;
 
   return query;
 }

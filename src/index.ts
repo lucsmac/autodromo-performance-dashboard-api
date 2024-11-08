@@ -1,7 +1,10 @@
 import 'dotenv/config';
 
-import './data-collect/queues/my-queue';
-import './data-collect/workers/my-worker';
-import './data-collect/app';
+import './infra/queue/queues/my-queue';
+import './infra/queue/workers/my-worker';
+import './usecases/collect-channels-performance-metrics/index';
+
+import './infra/db/connection';
+import './data/models';
 
 console.log('Application is running at port 3333! 🚀');

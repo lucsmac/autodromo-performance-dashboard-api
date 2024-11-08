@@ -1,5 +1,5 @@
-import { setUpQuery } from "../utils/set-up-query"
-import { PerformanceResult } from "../types/lighthouse-api-response"
+import { setUpQuery } from "../../../utils/set-up-query"
+import { PerformanceResult } from "../../../data/types/lighthouse-api-response"
 import { Job } from "bullmq"
 
 export const getChannelMetrics = async (job: Job) => {
@@ -9,6 +9,11 @@ export const getChannelMetrics = async (job: Job) => {
   fetch(url)
     .then(response => response.json() as Promise<PerformanceResult>)
     .then((json: PerformanceResult) => {
+      if (!json?.lighthouseResult) {
+        console.log(`ERROR - RESULT IS UNAVAILABLE - RESPONSE: ${JSON.stringify(json)}`)
+        return null
+      }
+      
       const performanceScore = json.lighthouseResult.categories.performance.score
       const resultAudits = json.lighthouseResult.audits
       const responseTime = resultAudits['server-response-time'].numericValue;

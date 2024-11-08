@@ -1,6 +1,6 @@
 import { Worker } from 'bullmq'
 import { RedisOptions } from 'ioredis'
-import { getChannelMetrics } from '../jobs/get-channel-metrics'
+import { getChannelMetrics } from '../../../usecases/collect-channels-performance-metrics/jobs/get-channel-metrics'
 
 const redisOptions: RedisOptions = {
   host: 'redis',
@@ -10,7 +10,13 @@ const redisOptions: RedisOptions = {
 const worker = new Worker(
   'myQueue',
   getChannelMetrics,
-  { connection: redisOptions }
+  {
+    connection: redisOptions,
+    limiter: {
+      max: 30,
+      duration: 60 * 1000, // 60 segundos
+    }
+  }
 )
 
 worker.on('failed', (job, err) => {
