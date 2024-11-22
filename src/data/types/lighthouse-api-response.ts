@@ -41,7 +41,7 @@ interface Audit {
   displayValue?: string;
   scoreDisplayMode: string;
   details?: any; // Pode ser mais detalhado se houver estrutura específica para os objetos de auditoria
-  numericValue?: number;
+  numericValue: number;
 }
 
 interface Audits {
