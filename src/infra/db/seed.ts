@@ -1,24 +1,25 @@
-import { Channel, ChannelModel } from '../../data/models'
-import './connection'
-
-const getThemesData = async (): Promise<Channel[]> => {
-  const themesResponse = await fetch('https://lucsmac.github.io/autodromo-domains/full_data.json')
-  const themesList: string = await themesResponse.json() as string
-  
-  return JSON.parse(themesList) as Channel[]
-}
+import "reflect-metadata"
+import { Channel } from '../../data/types/channel'
+import { getThemesData } from '../../utils/get-themes-data'
+import { ChannelRepository } from "../../data/repositories/ChannelRepository"
+import { connection } from './connection'
 
 export async function seedDb() {
-  const seedData: Channel[] = await getThemesData()
-
   try {
-    await ChannelModel.deleteMany({});
-    await ChannelModel.insertMany(seedData);
+    const channelsSeedData: Channel[] = await getThemesData()
+    const channelRepository = new ChannelRepository();
 
-    console.log(`Database was seeded with ${seedData.length} channels`)
+    channelsSeedData.forEach((channelData: Channel) => {
+      channelRepository.create(channelData)
+    })
+
+    console.log(`Database was seeded with ${channelsSeedData.length} channels`)
   } catch(error) {
     console.error(`Error when seed database * Error message: ${error}`)
   }
 }
 
-seedDb()
+connection()
+  .then(() => {
+    seedDb()
+  })
