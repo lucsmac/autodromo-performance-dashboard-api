@@ -1,6 +1,7 @@
 import { JobsOptions } from "bullmq";
 import myQueue from "../../infra/queue/queues/my-queue";
-import { Channel, ChannelModel } from "../../data/models";
+import { Channel } from "../../data/types/channel";
+import { ChannelRepository } from "../../data/repositories/ChannelRepository";
 
 const defaultConfig: JobsOptions = {
   removeOnComplete: {
@@ -12,17 +13,16 @@ const defaultConfig: JobsOptions = {
   }
 }
 
-const getChannelsList = async () => {
-  const channels = await ChannelModel.find({ theme: 'showroom_performance' });
-  return channels;
-}
+export async function addCollectChannelsPerformanceMetricsJobsToQueue() {
+  const channelRepository = new ChannelRepository()
+  const channelsList: Channel[] = await channelRepository.listAll() as Channel[]
 
-async function addJobs() {
-  const channelsList = await getChannelsList();
-  
-  if (channelsList?.length === 0) return
+  if (channelsList?.length === 0) {
+    console.log('We have no channels to see metrics.')
+    return
+  }
 
-  channelsList.forEach(async (channel: Channel) => {
+  [channelsList[0], channelsList[1]].forEach(async (channel: Channel) => {
     await myQueue.add(
       'collectChannelPerformanceMetric',
       {
@@ -32,10 +32,6 @@ async function addJobs() {
       defaultConfig
     )
   })
-
-  return channelsList?.length
+  
+  console.log(`Collect metrics from ${channelsList?.length} channels.`)
 }
-
-addJobs().then((channelsCount) => {
-  console.log(`Collect metrics from ${channelsCount} channels.`)
-})
