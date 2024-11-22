@@ -5,12 +5,22 @@ import { Channel } from "../types/channel";
 const channelRepository = dataSource.getRepository(ChannelModel);
 
 export class ChannelRepository {
-  async create(params: Channel) {
+  async create(params: Channel): Promise<void> {
     const channelData = channelRepository.create(params)
     await channelRepository.save(channelData)
   }
 
-  async listAll() {
+  async listAll(): Promise<ChannelModel[]> {
     return await channelRepository.find()
+  }
+
+  async listAllReferences(): Promise<ChannelModel[]> {
+    const allReferences = await channelRepository.find({
+      where: {
+        is_reference: true,
+      }
+    })
+
+    return allReferences
   }
 }

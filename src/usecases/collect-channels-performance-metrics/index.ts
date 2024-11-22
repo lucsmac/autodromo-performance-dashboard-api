@@ -1,37 +1,27 @@
 import { JobsOptions } from "bullmq";
-import myQueue from "../../infra/queue/queues/my-queue";
 import { Channel } from "../../data/types/channel";
 import { ChannelRepository } from "../../data/repositories/channel-repository";
+import { addCollectChannelsPerformanceMetricsJobsToQueue } from "./collect-channels-metrics";
 
-const defaultConfig: JobsOptions = {
-  removeOnComplete: {
-    age: 3600,
-    count: 1000,
-  },
-  removeOnFail: {
-    age: 24 * 3600
+const referenceChannelsConfig: JobsOptions = {
+  repeat: {
+    pattern: '*/30 12-21 * * *',
+    utc: true
   }
 }
 
-export async function addCollectChannelsPerformanceMetricsJobsToQueue() {
-  const channelRepository = new ChannelRepository()
-  const channelsList: Channel[] = await channelRepository.listAll() as Channel[]
-
-  if (channelsList?.length === 0) {
-    console.log('We have no channels to see metrics.')
-    return
+const allChannelsConfig: JobsOptions = {
+  repeat: {
+    pattern: '0 */3 * *',
+    utc: true
   }
+}
 
-  channelsList.splice(0, 2).forEach(async (channel: Channel) => {
-    await myQueue.add(
-      'collectChannelPerformanceMetric',
-      {
-        channelUrl: channel.internal_link,
-        channelTheme: channel.theme
-      },
-      defaultConfig
-    )
-  })
+export async function setCollectChannelMetricsJobs() {
+  const channelRepository = new ChannelRepository()
+  const referencesChannelsList: Channel[] = await channelRepository.listAllReferences() as Channel[]
+  const channelsList: Channel[] = await channelRepository.listAll() as Channel[]
   
-  console.log(`Collect metrics from ${channelsList?.length} channels.`)
+  addCollectChannelsPerformanceMetricsJobsToQueue(referencesChannelsList, referenceChannelsConfig)
+  addCollectChannelsPerformanceMetricsJobsToQueue(channelsList, allChannelsConfig)
 }
