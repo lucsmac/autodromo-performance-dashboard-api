@@ -1,5 +1,12 @@
-import mongoose from 'mongoose';
+import { dataSource } from './data-source';
 
-mongoose.connect('mongodb://mongo:27017/mydatabase', {})
-  .then(() => console.log('Conectado ao MongoDB'))
-  .catch(err => console.error('Erro de conexão:', err));
+export const connection = async () => {
+  await dataSource.initialize()
+    .then(async () => {
+      await dataSource.runMigrations();
+      console.log('Database has been initialized')
+    })
+    .catch((err) => {
+      console.error('Error during Database initialization. Error: ', err)
+    })
+}
