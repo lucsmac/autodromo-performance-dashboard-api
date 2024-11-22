@@ -1,6 +1,6 @@
 import { dataSource } from "../../infra/db/data-source";
 import { Channel as ChannelModel } from "../entities/Channel";
-import { Channel } from "../models";
+import { Channel } from "../types/channel";
 
 const channelRepository = dataSource.getRepository(ChannelModel);
 
