@@ -17,7 +17,7 @@ export class Metrics {
   @Column('text')
   channel_theme: string | undefined;
 
-  @Column('int')
+  @Column('float')
   score: number | undefined;
 
   @Column('int')

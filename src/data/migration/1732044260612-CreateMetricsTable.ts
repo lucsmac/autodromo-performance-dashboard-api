@@ -26,7 +26,7 @@ export class CreateMetricsTable1732044260612 implements MigrationInterface {
                     },
                     {
                         name: 'score',
-                        type: 'int',
+                        type: 'float',
                         isNullable: false,
                     },
                     {

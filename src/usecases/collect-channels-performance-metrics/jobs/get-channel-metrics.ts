@@ -7,7 +7,7 @@ import { adaptLighthouseResultsToMetrics } from "../adapters/lighthouse-adapter"
 
 export const getChannelMetrics = async (job: Job) => {
   const { channelUrl, channelTheme } = job.data;
-  
+
   const url = setUpQuery(channelUrl)
   fetch(url)
     .then(response => response.json() as Promise<PerformanceResult>)

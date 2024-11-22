@@ -5,7 +5,7 @@ import { addCollectChannelsPerformanceMetricsJobsToQueue } from "./collect-chann
 
 const referenceChannelsConfig: JobsOptions = {
   repeat: {
-    pattern: '*/30 12-21 * * *',
+    pattern: '*/30 * * * *',
     utc: true
   }
 }
@@ -21,7 +21,7 @@ export async function setCollectChannelMetricsJobs() {
   const channelRepository = new ChannelRepository()
   const referencesChannelsList: Channel[] = await channelRepository.listAllReferences() as Channel[]
   const channelsList: Channel[] = await channelRepository.listAll() as Channel[]
-  
+
   addCollectChannelsPerformanceMetricsJobsToQueue(referencesChannelsList, referenceChannelsConfig)
   addCollectChannelsPerformanceMetricsJobsToQueue(channelsList, allChannelsConfig)
 }
