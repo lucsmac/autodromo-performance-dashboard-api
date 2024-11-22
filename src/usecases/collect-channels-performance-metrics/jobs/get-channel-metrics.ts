@@ -2,6 +2,8 @@ import { setUpQuery } from "../../../utils/set-up-query"
 import { PerformanceResult } from "../../../data/types/lighthouse-api-response"
 import { Job } from "bullmq"
 import { Metrics } from "../../../data/types/metrics";
+import { MetricsRepository } from "../../../data/repositories/metrics-repository";
+import { adaptLighthouseResultsToMetrics } from "../adapters/lighthouse-adapter";
 
 export const getChannelMetrics = async (job: Job) => {
   const { channelUrl, channelTheme } = job.data;
@@ -11,28 +13,13 @@ export const getChannelMetrics = async (job: Job) => {
     .then(response => response.json() as Promise<PerformanceResult>)
     .then((json: PerformanceResult) => {
       if (!json?.lighthouseResult) {
-        console.log(`ERROR - RESULT IS UNAVAILABLE - RESPONSE: ${JSON.stringify(json)}`)
+        const logMessage = `ERROR - RESULT IS UNAVAILABLE - CHANNEL: ${channelUrl} - THEME: ${channelTheme} - RESPONSE: ${JSON.stringify(json)}`
+        console.log(logMessage)
+        
         return null
       }
-      
-      const performanceScore = json.lighthouseResult.categories.performance.score
-      const resultAudits = json.lighthouseResult.audits
-      const responseTime = resultAudits['server-response-time'].numericValue;
-      const fcp = resultAudits['first-contentful-paint'].numericValue
-      const si = resultAudits['speed-index'].numericValue;
-      const lcp = resultAudits['largest-contentful-paint'].numericValue;
-      const tbt = resultAudits['total-blocking-time'].numericValue;
-      const cls = resultAudits['cumulative-layout-shift'].numericValue;
 
-      const metrics = {
-        score: performanceScore * 100,
-        responseTime: responseTime,
-        fcp,
-        si,
-        lcp,
-        tbt,
-        cls
-      }
+      const metrics = adaptLighthouseResultsToMetrics(json.lighthouseResult)
 
       const data: Metrics = {
         channel_url: channelUrl,
@@ -41,6 +28,7 @@ export const getChannelMetrics = async (job: Job) => {
         ...metrics,
       }
 
-      console.log('data: ', data)
+      const metricsRepository = new MetricsRepository()
+      metricsRepository.create(data)
     })
 }

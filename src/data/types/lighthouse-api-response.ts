@@ -135,7 +135,7 @@ interface FullPageScreenshot {
   nodes: Record<string, any>;
 }
 
-interface LighthouseResult {
+export interface LighthouseResult {
   requestedUrl: string;
   finalUrl: string;
   mainDocumentUrl: string;
