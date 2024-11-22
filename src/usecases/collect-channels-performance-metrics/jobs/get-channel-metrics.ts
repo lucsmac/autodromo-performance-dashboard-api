@@ -1,6 +1,7 @@
 import { setUpQuery } from "../../../utils/set-up-query"
 import { PerformanceResult } from "../../../data/types/lighthouse-api-response"
 import { Job } from "bullmq"
+import { Metrics } from "../../../data/types/metrics";
 
 export const getChannelMetrics = async (job: Job) => {
   const { channelUrl, channelTheme } = job.data;
@@ -33,12 +34,11 @@ export const getChannelMetrics = async (job: Job) => {
         cls
       }
 
-      const data = {
-        channel: {
-          url: channelUrl,
-          theme: channelTheme,
-        },
-        metrics
+      const data: Metrics = {
+        channel_url: channelUrl,
+        channel_theme: channelTheme,
+        time: new Date(),
+        ...metrics,
       }
 
       console.log('data: ', data)
