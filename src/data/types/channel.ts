@@ -3,4 +3,5 @@ export type Channel = {
   domain: string,
   internal_link: string,
   theme: string,
+  is_reference?: boolean,
 }

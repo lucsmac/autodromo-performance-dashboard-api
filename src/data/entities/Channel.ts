@@ -16,4 +16,7 @@ export class Channel {
 
   @Column('text')
   theme: string | undefined;
+
+  @Column('bool')
+  is_reference: boolean | undefined;
 }

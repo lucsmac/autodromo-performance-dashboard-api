@@ -33,6 +33,11 @@ export class CreateChannelTable1732044214596 implements MigrationInterface {
                         name: 'theme',
                         type: 'text',
                         isNullable: false,
+                    },
+                    {
+                        name: 'is_reference',
+                        type: 'bool',
+                        isNullable: true,
                     }
                 ]
             }),
