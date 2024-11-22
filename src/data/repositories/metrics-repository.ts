@@ -5,7 +5,8 @@ import { Metrics } from "../types/metrics";
 const metricsRepository = dataSource.getRepository(MetricsModel);
 
 export class MetricsRepository {
-  create(params: Metrics) {
-    metricsRepository.create(params)
+  async create(params: Metrics) {
+    const metricsData = metricsRepository.create(params)
+    await metricsRepository.save(metricsData)
   }
 }

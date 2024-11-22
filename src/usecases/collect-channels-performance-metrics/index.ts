@@ -1,7 +1,7 @@
 import { JobsOptions } from "bullmq";
 import myQueue from "../../infra/queue/queues/my-queue";
 import { Channel } from "../../data/types/channel";
-import { ChannelRepository } from "../../data/repositories/ChannelRepository";
+import { ChannelRepository } from "../../data/repositories/channel-repository";
 
 const defaultConfig: JobsOptions = {
   removeOnComplete: {
@@ -22,7 +22,7 @@ export async function addCollectChannelsPerformanceMetricsJobsToQueue() {
     return
   }
 
-  [channelsList[0], channelsList[1]].forEach(async (channel: Channel) => {
+  channelsList.splice(0, 2).forEach(async (channel: Channel) => {
     await myQueue.add(
       'collectChannelPerformanceMetric',
       {

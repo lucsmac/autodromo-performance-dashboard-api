@@ -6,8 +6,8 @@ const channelRepository = dataSource.getRepository(ChannelModel);
 
 export class ChannelRepository {
   async create(params: Channel) {
-    const channel = channelRepository.create(params)
-    await channelRepository.save(channel)
+    const channelData = channelRepository.create(params)
+    await channelRepository.save(channelData)
   }
 
   async listAll() {

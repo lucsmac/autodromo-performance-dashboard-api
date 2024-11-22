@@ -1,7 +1,7 @@
 import "reflect-metadata"
 import { Channel } from '../../data/types/channel'
 import { getThemesData } from '../../utils/get-themes-data'
-import { ChannelRepository } from "../../data/repositories/ChannelRepository"
+import { ChannelRepository } from "../../data/repositories/channel-repository"
 import { connection } from './connection'
 
 export async function seedDb() {
