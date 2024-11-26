@@ -8,10 +8,11 @@ import './infra/queue/workers/my-worker';
 import './usecases/collect-channels-performance-metrics/index';
 
 import { setCollectChannelMetricsJobs } from './usecases/collect-channels-performance-metrics/index';
+  
+import './api'
 
 connection()
   .then(() => {
-    console.log('Application is running at port 3333! 🚀');
     setCollectChannelMetricsJobs();
+    console.log('Metrics are being collected correctly')
   })
-  
