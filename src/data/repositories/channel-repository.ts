@@ -1,3 +1,4 @@
+import { Not } from "typeorm";
 import { dataSource } from "../../infra/db/data-source";
 import { Channel as ChannelModel } from "../entities/Channel";
 import { Channel } from "../types/channel";
@@ -18,6 +19,16 @@ export class ChannelRepository {
     const allReferences = await channelRepository.find({
       where: {
         is_reference: true,
+      }
+    })
+
+    return allReferences
+  }
+
+  async listAllClients(): Promise<ChannelModel[]> {
+    const allReferences = await channelRepository.find({
+      where: {
+        is_reference: Not(true),
       }
     })
 
