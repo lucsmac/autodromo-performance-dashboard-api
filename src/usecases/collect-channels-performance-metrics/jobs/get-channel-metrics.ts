@@ -8,18 +8,24 @@ import { adaptLighthouseResultsToMetrics } from "../adapters/lighthouse-adapter"
 export const getChannelMetrics = async (job: Job) => {
   const { channelUrl, channelTheme } = job.data;
 
-  const url = setUpQuery(channelUrl)
-  fetch(url)
-    .then(response => response.json() as Promise<PerformanceResult>)
-    .then((json: PerformanceResult) => {
-      if (!json?.lighthouseResult) {
-        const logMessage = `ERROR - RESULT IS UNAVAILABLE - CHANNEL: ${channelUrl} - THEME: ${channelTheme} - RESPONSE: ${JSON.stringify(json)}`
-        console.log(logMessage)
-        
-        return null
-      }
+  try {
+    const url = setUpQuery(channelUrl)
+    const response = await fetch(url)
 
-      const metrics = adaptLighthouseResultsToMetrics(json.lighthouseResult)
+    if (!response.ok) {
+      throw new Error(`Network response was not ok, status: ${response.status}`);
+    }
+    
+    const responseData = await response.json() as PerformanceResult
+
+    if (!responseData?.lighthouseResult) {
+      const logMessage = `ERROR - RESULT IS UNAVAILABLE - CHANNEL: ${channelUrl} - THEME: ${channelTheme} - RESPONSE: ${JSON.stringify(responseData)}`
+      console.log(logMessage)
+      
+      return null
+    }
+
+    const metrics = adaptLighthouseResultsToMetrics(responseData.lighthouseResult)
 
       const data: Metrics = {
         channel_url: channelUrl,
@@ -30,5 +36,7 @@ export const getChannelMetrics = async (job: Job) => {
 
       const metricsRepository = new MetricsRepository()
       metricsRepository.create(data)
-    })
+  } catch(error) {
+    console.error(`Error fetching or processing metrics for channel: ${channelUrl}, theme: ${channelTheme}`, error);
+  }
 }

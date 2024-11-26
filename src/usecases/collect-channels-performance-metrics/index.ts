@@ -19,13 +19,15 @@ export async function setCollectChannelMetricsJobs() {
   addCollectChannelsPerformanceMetricsJobsToQueue(referencesChannelsList, referenceChannelsConfig)
 
   const chunkedChannelsArray = chunkArray(clientsChannelsList, 150)
+
   chunkedChannelsArray.forEach((channelsChunk, index) => {
     const customConfig: JobsOptions = {
       repeat: {
-        pattern: `${index * 5} */3 * *`,
+        pattern: `${index * 5} */3 * * *`,
         utc: true
       }
     }
+    
     addCollectChannelsPerformanceMetricsJobsToQueue(channelsChunk, customConfig)
   })
 }

@@ -33,5 +33,5 @@ export async function addCollectChannelsPerformanceMetricsJobsToQueue(channelsLi
     )
   })
   
-  console.log(`Collect metrics from ${channelsList?.length} channels.`)
+  console.log(`Collect metrics from ${channelsList?.length} channels with these custom config: ${JSON.stringify(customJobConfig)}.`)
 }
