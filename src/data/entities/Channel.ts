@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Metrics } from './Metrics';
 
 @Entity()
 export class Channel {    
@@ -19,4 +20,7 @@ export class Channel {
 
   @Column('bool')
   is_reference: boolean | undefined;
+
+  @OneToMany(() => Metrics, (metric) => metric.channel)
+  metrics: Metrics[] | undefined;
 }

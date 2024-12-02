@@ -23,12 +23,12 @@ export async function addCollectChannelsPerformanceMetricsJobsToQueue(channelsLi
       'collectChannelPerformanceMetric',
       {
         channelUrl: channel.internal_link,
-        channelTheme: channel.theme
+        channelId: channel.id
       },
       {
         ...defaultConfig,
         ...customJobConfig,
-        jobId: `collect-metrics-${channel.internal_link}`
+        jobId: `collect-metrics-${channel.id}`
       }
     )
   })

@@ -3,8 +3,7 @@ export interface Metrics extends ChannelIdentifier, PerformanceMetrics {
 }
 
 type ChannelIdentifier = {
-  channel_url: string,
-  channel_theme: string
+  channel_id: string,
 }
 
 type PerformanceMetrics = {

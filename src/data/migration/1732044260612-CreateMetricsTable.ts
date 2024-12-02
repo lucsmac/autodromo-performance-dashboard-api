@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class CreateMetricsTable1732044260612 implements MigrationInterface {
 
@@ -15,13 +15,8 @@ export class CreateMetricsTable1732044260612 implements MigrationInterface {
                         default: 'uuid_generate_v4()'
                     },
                     {
-                        name: 'channel_url',
-                        type: 'text',
-                        isNullable: false,
-                    },
-                    {
-                        name: 'channel_theme',
-                        type: 'text',
+                        name: 'channel_id',
+                        type: 'uuid',
                         isNullable: false,
                     },
                     {
@@ -75,9 +70,27 @@ export class CreateMetricsTable1732044260612 implements MigrationInterface {
             }),
             true,
         );
+
+        await queryRunner.createForeignKey(
+            'metrics',
+            new TableForeignKey({
+                columnNames: ['channel_id'],
+                referencedColumnNames: ['id'],
+                referencedTableName: 'channel',
+                onDelete: 'CASCADE',
+                onUpdate: 'CASCADE',
+            }),
+        );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        const table = await queryRunner.getTable('metrics');
+        const foreignKey = table?.foreignKeys.find(fk => fk.columnNames.indexOf('channel_id') !== -1);
+        if (foreignKey) {
+            await queryRunner.dropForeignKey('metrics', foreignKey);
+        }
+
+        
         await queryRunner.dropTable('metrics')
     }
 

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
+import { Channel } from './Channel';
 
 @Entity()
 export class Metrics {    
@@ -10,12 +11,6 @@ export class Metrics {
     default: () => 'CURRENT_TIMESTAMP',
   })
   time: Date | undefined;
-
-  @Column('text')
-  channel_url: string | undefined;
-
-  @Column('text')
-  channel_theme: string | undefined;
 
   @Column('float')
   score: number | undefined;
@@ -37,4 +32,11 @@ export class Metrics {
 
   @Column('float')
   cls: number | undefined;
+
+  @Column({ nullable: false })
+  channel_id: string | undefined;
+
+  @ManyToOne(() => Channel, (channel: Channel) => channel.metrics)
+  @JoinColumn({ name: 'channel_id' })
+  channel: Channel | undefined;
 }
