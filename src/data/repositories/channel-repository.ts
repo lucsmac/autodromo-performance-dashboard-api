@@ -34,4 +34,14 @@ export class ChannelRepository {
 
     return allClients
   }
+
+  async listByTheme(theme: string): Promise<ChannelModel[]> {
+    const channelsByTheme = await channelRepository.find({
+      where: {
+        theme: theme,
+      }
+    })
+
+    return channelsByTheme
+  }
 }
