@@ -45,7 +45,7 @@ export class ChannelRepository {
     return channelsByTheme
   }
 
-  async findById(id: number): Promise<ChannelModel | null> {
+  async findById(id: string): Promise<ChannelModel | null> {
     const channel = await channelRepository.findOne({
       where: {
         id

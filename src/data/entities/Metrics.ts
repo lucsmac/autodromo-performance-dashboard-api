@@ -4,39 +4,39 @@ import { Channel } from './Channel';
 @Entity()
 export class Metrics {    
   @PrimaryGeneratedColumn('uuid')
-  id: number | undefined;
+  id!: number;
 
   @PrimaryColumn({
     type: 'timestamp with time zone',
     default: () => 'CURRENT_TIMESTAMP',
   })
-  time: Date | undefined;
+  time!: Date;
 
   @Column('float')
-  score: number | undefined;
+  score!: number;
 
   @Column('int')
-  responseTime: number | undefined;
+  responseTime!: number;
 
   @Column('float')
-  fcp: number | undefined;
+  fcp!: number;
 
   @Column('float')
-  si: number | undefined;
+  si!: number;
 
   @Column('float')
-  lcp: number | undefined;
+  lcp!: number;
 
   @Column('float')
-  tbt: number | undefined;
+  tbt!: number;
 
   @Column('float')
-  cls: number | undefined;
+  cls!: number;
 
   @Column({ nullable: false })
-  channel_id: string | undefined;
+  channel_id!: string;
 
   @ManyToOne(() => Channel, (channel: Channel) => channel.metrics)
   @JoinColumn({ name: 'channel_id' })
-  channel: Channel | undefined;
+  channel!: Channel;
 }

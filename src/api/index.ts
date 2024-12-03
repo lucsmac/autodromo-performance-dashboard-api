@@ -11,7 +11,7 @@ server.register(channelsRoutes, {
   prefix: 'channels',
 })
 server.register(metricsRoutes, {
-  prefix: 'metrics',
+  prefix: 'channels',
 })
 
 // Run the server!

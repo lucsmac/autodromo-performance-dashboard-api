@@ -6,6 +6,6 @@ const redisOptions: RedisOptions = {
   port: 6379,
 }
 
-const myQueue = new Queue('myQueue', { connection: redisOptions })
+const defaultQueue = new Queue('defaultQueue', { connection: redisOptions })
 
-export default myQueue
+export default defaultQueue

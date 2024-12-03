@@ -15,3 +15,14 @@ type PerformanceMetrics = {
   tbt: number,
   cls: number
 }
+
+export type PerformanceMetricsResponse = {
+  time: Date,
+  score?: number,
+  responseTime?: number,
+  fcp?: number,
+  si?: number,
+  lcp?: number,
+  tbt?: number,
+  cls?: number
+}

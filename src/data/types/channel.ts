@@ -1,7 +1,7 @@
 import { Metrics } from "./metrics"
 
 export type Channel = {
-  id: number,
+  id: string,
   name: string,
   domain: string,
   internal_link: string,

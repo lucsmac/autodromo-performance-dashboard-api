@@ -4,23 +4,23 @@ import { Metrics } from './Metrics';
 @Entity()
 export class Channel {    
   @PrimaryGeneratedColumn('uuid')
-  id: number | undefined;
+  id!: string;
 
   @Column('text')
-  name: string | undefined;
+  name!: string;
 
   @Column('text')
-  domain: string | undefined;
+  domain!: string;
 
   @Column('text', { unique: true })
-  internal_link: string | undefined;
+  internal_link!: string;
 
   @Column('text')
-  theme: string | undefined;
+  theme!: string;
 
   @Column('bool')
-  is_reference: boolean | undefined;
+  is_reference!: boolean;
 
   @OneToMany(() => Metrics, (metric) => metric.channel)
-  metrics: Metrics[] | undefined;
+  metrics!: Metrics[];
 }

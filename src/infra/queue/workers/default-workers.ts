@@ -7,8 +7,20 @@ const redisOptions: RedisOptions = {
   port: 6379
 }
 
-const worker = new Worker(
-  'myQueue',
+export const worker = new Worker(
+  'defaultQueue',
+  getChannelMetrics,
+  {
+    connection: redisOptions,
+    limiter: {
+      max: 30,
+      duration: 60 * 1000, // 60 segundos
+    }
+  }
+)
+
+export const secondWorker = new Worker(
+  'defaultQueue',
   getChannelMetrics,
   {
     connection: redisOptions,
@@ -26,5 +38,3 @@ worker.on('failed', (job, err) => {
 worker.on('error', err => {
   console.error(err);
 });
-
-export default worker

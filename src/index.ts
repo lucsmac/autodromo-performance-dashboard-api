@@ -3,8 +3,8 @@ import 'reflect-metadata';
 
 import { connection } from './infra/db/connection';
 
-import './infra/queue/queues/my-queue';
-import './infra/queue/workers/my-worker';
+import './infra/queue/queues/default-queue';
+import './infra/queue/workers/default-workers';
 import './usecases/collect-channels-performance-metrics/index';
 
 import { setCollectChannelMetricsJobs } from './usecases/collect-channels-performance-metrics/index';

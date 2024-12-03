@@ -1,5 +1,5 @@
 import { JobsOptions } from "bullmq";
-import myQueue from "../../infra/queue/queues/my-queue";
+import defaultQueue from "../../infra/queue/queues/default-queue";
 import { Channel } from "../../data/types/channel";
 
 const defaultConfig: JobsOptions = {
@@ -19,7 +19,7 @@ export async function addCollectChannelsPerformanceMetricsJobsToQueue(channelsLi
   }
 
   channelsList.forEach(async (channel: Channel) => {
-    await myQueue.add(
+    await defaultQueue.add(
       'collectChannelPerformanceMetric',
       {
         channelUrl: channel.internal_link,
