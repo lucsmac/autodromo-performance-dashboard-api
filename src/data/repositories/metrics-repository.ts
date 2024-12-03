@@ -20,4 +20,10 @@ export class MetricsRepository {
 
     return channelMetrics
   }
+
+  async query(query: string, parameters: unknown[]) {
+    const result = await metricsRepository.query(query, parameters)
+
+    return result
+  }
 }

@@ -26,3 +26,14 @@ export type PerformanceMetricsResponse = {
   tbt?: number,
   cls?: number
 }
+
+export type PerformanceAverageMetricsResponse = {
+  period_start: Date,
+  avg_score?: number,
+  avg_response_time?: number,
+  avg_fcp?: number,
+  avg_si?: number,
+  avg_lcp?: number,
+  avg_tbt?: number,
+  avg_cls?: number
+}
