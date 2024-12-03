@@ -1,16 +1,16 @@
 import { FastifyReply, FastifyRequest } from "fastify"
 import { ZodError } from "zod";
 import { getMetricsByPeriod } from "./utils/get-metrics-average";
-import { channelRequestParamsSchema } from "./utils/schemas";
+import { requestParamsSchema } from "./utils/schemas";
 import { querySchema } from "../channels-metrics/utils/schemas";
 import { filterByAverageMetric } from "./utils/filter-by-average-metric";
 
-export const getChannelAverageMetrics = async (request: FastifyRequest, reply: FastifyReply) => {
+export const getChannelsAverageMetrics = async (request: FastifyRequest, reply: FastifyReply) => {
   try {
     const { metric, startDate, endDate } = querySchema.parse(request.query);
-    const { period, channel_id } = channelRequestParamsSchema.parse(request.params);
+    const { period } = requestParamsSchema.parse(request.params);
     
-    const metricsAverage = await getMetricsByPeriod({ period, startDate, endDate, channel_id })
+    const metricsAverage = await getMetricsByPeriod({ period, startDate, endDate })
 
     let metricsResponseData = metricsAverage
     

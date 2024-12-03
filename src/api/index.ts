@@ -1,4 +1,5 @@
 import Fastify from 'fastify'
+import { channelRoutes } from './routes/channel'
 import { channelsRoutes } from './routes/channels'
 import { metricsRoutes } from './routes/metrics'
 
@@ -6,7 +7,9 @@ const server = Fastify({
   logger: true
 })
 
-// Declare a route
+server.register(channelRoutes, {
+  prefix: 'channel',
+})
 server.register(channelsRoutes, {
   prefix: 'channels',
 })
@@ -14,7 +17,6 @@ server.register(metricsRoutes, {
   prefix: 'channels',
 })
 
-// Run the server!
 try {
   const startServer = async () => {
     await server.listen({ port: 3000, host: '0.0.0.0' })
