@@ -5,9 +5,9 @@ import { connection } from './infra/db/connection';
 
 import './infra/queue/queues/default-queue';
 import './infra/queue/workers/default-workers';
-import './usecases/collect-channels-performance-metrics/index';
+import './services/collect-channels-performance-metrics/index';
 
-import { setCollectChannelMetricsJobs } from './usecases/collect-channels-performance-metrics/index';
+import { setCollectChannelMetricsJobs } from './services/collect-channels-performance-metrics/index';
   
 import './api'
 

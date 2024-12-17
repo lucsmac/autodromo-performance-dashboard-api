@@ -18,6 +18,10 @@ export async function addCollectChannelsPerformanceMetricsJobsToQueue(channelsLi
     return
   }
 
+  console.log('config:',{
+    ...defaultConfig,
+    ...customJobConfig} )
+
   channelsList.forEach(async (channel: Channel) => {
     await defaultQueue.add(
       'collectChannelPerformanceMetric',
