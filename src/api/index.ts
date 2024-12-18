@@ -2,10 +2,16 @@ import Fastify from 'fastify'
 import { channelRoutes } from './routes/channel'
 import { channelsRoutes } from './routes/channels'
 import { metricsRoutes } from './routes/metrics'
+import { createBoard } from './routes/bull-board'
 
 const server = Fastify({
   logger: true
 })
+
+server.register(createBoard(), {
+  prefix: 'bull-board',
+  basePath: '/bull-board'
+});
 
 server.register(channelRoutes, {
   prefix: 'channel',

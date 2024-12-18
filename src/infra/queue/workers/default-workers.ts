@@ -8,7 +8,7 @@ const redisOptions: RedisOptions = {
 }
 
 export const worker = new Worker(
-  'defaultQueue',
+  'mainQueue',
   getChannelMetrics,
   {
     connection: redisOptions,
@@ -20,7 +20,7 @@ export const worker = new Worker(
 )
 
 export const secondWorker = new Worker(
-  'defaultQueue',
+  'clientsQueue',
   getChannelMetrics,
   {
     connection: redisOptions,

@@ -1,5 +1,5 @@
-import { JobsOptions } from "bullmq";
-import defaultQueue from "../../infra/queue/queues/default-queue";
+import { JobsOptions, Queue } from "bullmq";
+import { mainQueue } from "../../infra/queue/queues/main-queue";
 import { Channel } from "../../data/types/channel";
 
 const defaultConfig: JobsOptions = {
@@ -12,18 +12,20 @@ const defaultConfig: JobsOptions = {
   }
 }
 
-export async function addCollectChannelsPerformanceMetricsJobsToQueue(channelsList: Channel[], customJobConfig: JobsOptions = {}) {
+interface Config {
+  queue?: Queue
+}
+
+export async function addCollectChannelsPerformanceMetricsJobsToQueue(channelsList: Channel[], customJobConfig: JobsOptions = {}, config: Config = {}) {
   if (channelsList?.length === 0) {
     console.log('We have no channels to see metrics.')
     return
   }
 
-  console.log('config:',{
-    ...defaultConfig,
-    ...customJobConfig} )
-
+  const queue = config.queue || mainQueue
+  
   channelsList.forEach(async (channel: Channel) => {
-    await defaultQueue.add(
+    await queue.add(
       'collectChannelPerformanceMetric',
       {
         channelUrl: channel.internal_link,

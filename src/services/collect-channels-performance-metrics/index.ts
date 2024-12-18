@@ -3,6 +3,7 @@ import { Channel } from "../../data/types/channel";
 import { ChannelRepository } from "../../data/repositories/channel-repository";
 import { addCollectChannelsPerformanceMetricsJobsToQueue } from "./collect-channels-metrics";
 import { chunkArray } from "../../utils/chunk-array";
+import { clientsQueue } from "../../infra/queue/queues/clients-queue";
 
 const referenceChannelsConfig: JobsOptions = {
   repeat: {
@@ -28,6 +29,6 @@ export async function setCollectChannelMetricsJobs() {
       }
     }
     
-    addCollectChannelsPerformanceMetricsJobsToQueue(channelsChunk, customConfig)
+    addCollectChannelsPerformanceMetricsJobsToQueue(channelsChunk, customConfig, { queue: clientsQueue })
   })
 }
