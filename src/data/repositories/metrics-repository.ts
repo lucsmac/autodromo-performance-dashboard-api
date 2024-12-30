@@ -1,6 +1,6 @@
 import { dataSource } from "../../infra/db/data-source";
-import { Channel } from "../entities/Channel";
-import { Metrics as MetricsModel } from "../entities/Metrics";
+import { Channel } from "../entities/channel";
+import { Metrics as MetricsModel } from "../entities/metrics";
 import { Metrics } from "../types/metrics";
 
 const metricsRepository = dataSource.getRepository(MetricsModel);

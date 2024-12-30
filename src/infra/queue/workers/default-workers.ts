@@ -1,6 +1,6 @@
 import { Worker } from 'bullmq'
 import { RedisOptions } from 'ioredis'
-import { getChannelMetrics } from '../../../services/collect-channels-performance-metrics/jobs/get-channel-metrics'
+import { runChannelMetricsCollect } from '../../../application/usecases/run-channel-metrics-collect'
 
 const redisOptions: RedisOptions = {
   host: 'redis',
@@ -9,7 +9,7 @@ const redisOptions: RedisOptions = {
 
 export const worker = new Worker(
   'mainQueue',
-  getChannelMetrics,
+  runChannelMetricsCollect,
   {
     connection: redisOptions,
     limiter: {
@@ -21,7 +21,7 @@ export const worker = new Worker(
 
 export const secondWorker = new Worker(
   'clientsQueue',
-  getChannelMetrics,
+  runChannelMetricsCollect,
   {
     connection: redisOptions,
     limiter: {

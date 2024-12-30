@@ -14,6 +14,6 @@ export const dataSource = new DataSource({
     'src/data/entities/*.{js,ts}'
   ],
   migrations: [
-    'src/data/migration/*.{js,ts}'
+    'src/infra/db/migration/*.{js,ts}'
   ]
 });

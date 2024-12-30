@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
-import { Channel } from './Channel';
+import { Channel } from './channel';
 
 @Entity()
 export class Metrics {    
