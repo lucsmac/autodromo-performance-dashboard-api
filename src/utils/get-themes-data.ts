@@ -1,4 +1,4 @@
-import { Channel } from "../data/types/channel"
+import { Channel } from "../domain/types/channel"
 
 export async function getThemesData(): Promise<Channel[]> {
   const themesResponse = await fetch('https://lucsmac.github.io/autodromo-domains/full_data.json')

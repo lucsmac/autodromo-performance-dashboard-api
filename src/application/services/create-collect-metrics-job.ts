@@ -1,6 +1,6 @@
-import { IMetricsUnchecked } from "../../data/entities/metrics.interface";
-import { MetricsRepository } from "../../data/repositories/metrics-repository";
-import { PerformanceResult } from "../../data/types/lighthouse-api-response";
+import { TypeormMetricsRepository } from "../../data/repositories/typeorm/typeorm-metrics-repository";
+import { IMetricsUnchecked } from "../../domain/entities/metrics.interface";
+import { PerformanceResult } from "../../domain/types/lighthouse-api-response";
 import { adaptLighthouseResultsToMetrics } from "../../utils/lighthouse-adapter";
 import { setUpQuery } from "../../utils/set-up-query";
 
@@ -30,6 +30,6 @@ export async function createCollectMetricsJob(channelUrl: string, channelId: str
     ...metrics,
   }
 
-  const metricsRepository = new MetricsRepository()
+  const metricsRepository = new TypeormMetricsRepository()
   metricsRepository.create(data)
 }

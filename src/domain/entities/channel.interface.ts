@@ -1,5 +1,5 @@
 export interface IChannel {
-  id: string;
+  id?: string;
   name: string;
   domain: string;
   internal_link: string;

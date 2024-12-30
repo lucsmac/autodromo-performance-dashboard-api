@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify"
-import { ChannelRepository } from "../../data/repositories/channel-repository"
-import { Channel } from "../../data/types/channel"
+import { ChannelRepository } from "../../data/repositories/channels-repository"
+import { Channel } from "../../domain/types/channel"
 import { z } from "zod"
 
 export async function channelsRoutes(server: FastifyInstance) {

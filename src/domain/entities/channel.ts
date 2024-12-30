@@ -1,8 +1,9 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { Metrics } from './metrics';
+import { IChannel } from './channel.interface';
 
 @Entity()
-export class Channel {    
+export class Channel implements IChannel {    
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 

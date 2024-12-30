@@ -1,10 +1,11 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
 import { Channel } from './channel';
+import { IMetrics } from './metrics.interface';
 
 @Entity()
-export class Metrics {    
+export class Metrics implements IMetrics {    
   @PrimaryGeneratedColumn('uuid')
-  id!: number;
+  id!: string;
 
   @PrimaryColumn({
     type: 'timestamp with time zone',

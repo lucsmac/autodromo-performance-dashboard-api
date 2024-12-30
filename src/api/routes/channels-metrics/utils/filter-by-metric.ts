@@ -1,4 +1,4 @@
-import { Metrics, PerformanceMetricsResponse } from '../../../../data/types/metrics'
+import { Metrics, PerformanceMetricsResponse } from '../../../../domain/types/metrics'
 import { MetricsOptions } from './schemas'
 
 export const filterByMetric = (metric: MetricsOptions, channelMetrics: Metrics[] | PerformanceMetricsResponse[]): PerformanceMetricsResponse[] => {

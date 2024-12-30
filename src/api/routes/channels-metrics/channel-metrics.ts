@@ -1,8 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { querySchema, requestParamsSchema } from "./utils/schemas";
-import { ChannelRepository } from "../../../data/repositories/channel-repository";
+import { ChannelRepository } from "../../../data/repositories/channels-repository";
 import { MetricsRepository } from "../../../data/repositories/metrics-repository";
-import { PerformanceMetricsResponse } from "../../../data/types/metrics";
+import { PerformanceMetricsResponse } from "../../../domain/types/metrics";
 import { filterByDate } from "./utils/filter-by-date";
 import { filterByMetric } from "./utils/filter-by-metric";
 import { ZodError } from "zod";

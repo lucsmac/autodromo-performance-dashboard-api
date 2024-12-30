@@ -1,21 +1,22 @@
 import { IsNull } from "typeorm";
-import { dataSource } from "../../infra/db/data-source";
-import { Channel as ChannelModel } from "../entities/channel";
-import { Channel } from "../types/channel";
+import { Channel as ChannelModel } from "../../../domain/entities/channel";
+import { dataSource } from "../../../infra/db/data-source";
+import { IChannel } from "../../../domain/entities/channel.interface";
+import { ChannelsRepository } from "../channels-repository";
 
-const channelRepository = dataSource.getRepository(ChannelModel);
+const channelRepository = dataSource.getRepository<ChannelModel>(ChannelModel);
 
-export class ChannelRepository {
-  async create(params: Channel): Promise<void> {
+export class TypeormChannelsRepository implements ChannelsRepository {
+  async create(params: IChannel): Promise<void> {
     const channelData = channelRepository.create(params)
     await channelRepository.save(channelData)
   }
 
-  async listAll(): Promise<ChannelModel[]> {
+  async listAll(): Promise<IChannel[]> {
     return await channelRepository.find()
   }
 
-  async listAllReferences(): Promise<ChannelModel[]> {
+  async listAllReferences(): Promise<IChannel[]> {
     const allReferences = await channelRepository.find({
       where: {
         is_reference: true,
@@ -25,7 +26,7 @@ export class ChannelRepository {
     return allReferences
   }
 
-  async listAllClients(): Promise<ChannelModel[]> {
+  async listAllClients(): Promise<IChannel[]> {
     const allClients = await channelRepository.find({
       where: {
         is_reference: IsNull(),
@@ -35,7 +36,7 @@ export class ChannelRepository {
     return allClients
   }
 
-  async listByTheme(theme: string): Promise<ChannelModel[]> {
+  async listByTheme(theme: string): Promise<IChannel[]> {
     const channelsByTheme = await channelRepository.find({
       where: {
         theme: theme,
@@ -45,7 +46,7 @@ export class ChannelRepository {
     return channelsByTheme
   }
 
-  async findById(id: string): Promise<ChannelModel | null> {
+  async findById(id: string): Promise<IChannel | null> {
     const channel = await channelRepository.findOne({
       where: {
         id

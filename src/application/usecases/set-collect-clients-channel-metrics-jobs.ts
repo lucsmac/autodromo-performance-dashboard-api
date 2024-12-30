@@ -1,13 +1,13 @@
 import { JobsOptions } from "bullmq";
-import { Channel } from "../../data/types/channel";
-import { ChannelRepository } from "../../data/repositories/channel-repository";
 import { addCollectChannelsPerformanceMetricsJobsToQueue } from "../services/add-collect-channels-performance-metrics-jobs-to-queue";
 import { chunkArray } from "../../utils/chunk-array";
 import { clientsQueue } from "../../infra/queue/queues/clients-queue";
+import { IChannel } from "../../domain/entities/channel.interface";
+import { TypeormChannelsRepository } from "../../data/repositories/typeorm/typeorm-channels-repository";
 
 export async function setCollectChannelMetricsJobs() {
-  const channelRepository = new ChannelRepository()
-  const clientsChannelsList: Channel[] = await channelRepository.listAllClients() as Channel[]
+  const channelRepository = new TypeormChannelsRepository()
+  const clientsChannelsList: IChannel[] = await channelRepository.listAllClients() as IChannel[]
 
   const chunkedChannelsArray = chunkArray(clientsChannelsList, 150)
 

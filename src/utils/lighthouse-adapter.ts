@@ -1,4 +1,4 @@
-import { LighthouseResult } from "../data/types/lighthouse-api-response";
+import { LighthouseResult } from "../domain/types/lighthouse-api-response";
 
 export const adaptLighthouseResultsToMetrics = (lighthouseResult: LighthouseResult) => {
   const performanceScore = lighthouseResult.categories.performance.score
