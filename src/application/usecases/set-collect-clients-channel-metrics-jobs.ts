@@ -3,25 +3,29 @@ import { AddCollectChannelsPerformanceMetricsJobsToQueue } from "../services/add
 import { chunkArray } from "../../utils/chunk-array";
 import { clientsQueue } from "../../infra/queue/queues/clients-queue";
 import { IChannel } from "../../domain/entities/channel.interface";
-import { TypeormChannelsRepository } from "../../data/repositories/typeorm/typeorm-channels-repository";
+import { ChannelsRepository } from "../../data/repositories/channels-repository";
 
-export async function setCollectChannelMetricsJobs() {
-  const channelRepository = new TypeormChannelsRepository()
-  const clientsChannelsList: IChannel[] = await channelRepository.listAllClients() as IChannel[]
-
-  const chunkedChannelsArray = chunkArray(clientsChannelsList, 150)
-
-  chunkedChannelsArray.forEach((channelsChunk, index) => {
-    const customConfig: JobsOptions = {
-      repeat: {
-        pattern: `${index * 5} */3 * * *`,
-        utc: true
+export class SetCollectClientsChannelMetricsJobs {
+  constructor (private channelsRepository: ChannelsRepository) {}
+  
+  async execute() {
+    const clientsChannelsList: IChannel[] = await this.channelsRepository.listAllClients() as IChannel[]
+  
+    const chunkedChannelsArray = chunkArray(clientsChannelsList, 150)
+  
+    chunkedChannelsArray.forEach((channelsChunk, index) => {
+      const customConfig: JobsOptions = {
+        repeat: {
+          pattern: `${index * 5} */3 * * *`,
+          utc: true
+        }
       }
-    }
-    
-    const addCollectChannelsPerformanceMetricsJobsToQueue =
-      new AddCollectChannelsPerformanceMetricsJobsToQueue()
-    addCollectChannelsPerformanceMetricsJobsToQueue
-      .execute(channelsChunk, customConfig, { queue: clientsQueue })
-  })
+      
+      const addCollectChannelsPerformanceMetricsJobsToQueue =
+        new AddCollectChannelsPerformanceMetricsJobsToQueue()
+
+      addCollectChannelsPerformanceMetricsJobsToQueue
+        .execute(channelsChunk, customConfig, { queue: clientsQueue })
+    })
+  }
 }
