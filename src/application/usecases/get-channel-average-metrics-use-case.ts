@@ -1,8 +1,8 @@
 import { endOfDay, parseISO } from "date-fns";
 import { MetricsRepository } from "../../data/repositories/metrics-repository";
-import { MetricsOptions } from "../../api/http/controllers/channel-metrics/utils/list-route-schemas";
-import { filterByAverageMetric } from "../../api/routes/channel-average-metrics/utils/filter-by-average-metric";
 import { PerformanceAverageMetricsResponse } from "../../domain/types/metrics";
+import { MetricsOptions } from "../../api/http/controllers/channel-metrics/utils/metrics-schemas";
+import { filterByAverageMetric } from "../../utils/filter-by-average-metrics";
 
 type GetMetricsAverageParams = {
   period: 'hourly' | 'daily' | 'weekly'
