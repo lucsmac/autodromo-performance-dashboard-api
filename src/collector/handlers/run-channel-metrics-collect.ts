@@ -1,6 +1,6 @@
 import { Job } from "bullmq"
-import { CreateCollectMetricsJob } from "../../../application/services/create-collect-metrics-job";
-import { TypeormMetricsRepository } from "../../../data/repositories/typeorm/typeorm-metrics-repository";
+import { CreateCollectMetricsJob } from "../services/create-collect-metrics-job";
+import { TypeormMetricsRepository } from "../../data/repositories/typeorm/typeorm-metrics-repository";
 
 export const runChannelMetricsCollect = async (job: Job) => {
   const { channelUrl, channelId } = job.data;

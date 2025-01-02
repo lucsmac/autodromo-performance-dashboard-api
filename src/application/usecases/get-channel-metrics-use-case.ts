@@ -4,7 +4,7 @@ import { MetricsOptions } from "../../api/http/controllers/channel-metrics/utils
 import { ChannelsRepository } from "../../data/repositories/channels-repository";
 import { MetricsRepository } from "../../data/repositories/metrics-repository";
 import { PerformanceMetricsResponse } from "../../domain/types/metrics";
-import { ResourceNotFound } from "../errors/resource-not-found";
+import { ResourceNotFound } from "../../domain/errors/resource-not-found";
 
 interface ChannelMetricsFilterOptions {
   metric?: MetricsOptions
