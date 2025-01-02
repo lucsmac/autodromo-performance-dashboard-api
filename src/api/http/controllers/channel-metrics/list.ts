@@ -3,7 +3,6 @@ import { querySchema, requestParamsSchema } from "./utils/list-route-schemas";
 import { TypeormChannelsRepository } from "../../../../data/repositories/typeorm/typeorm-channels-repository";
 import { TypeormMetricsRepository } from "../../../../data/repositories/typeorm/typeorm-metrics-repository";
 import { GetChannelMetricsUseCase } from "../../../../application/usecases/get-channel-metrics-use-case";
-import { ZodError } from "zod";
 import { ResourceNotFound } from "../../../../application/errors/resource-not-found";
 
 export async function listChannelMetrics(request: FastifyRequest, reply: FastifyReply) {
@@ -33,10 +32,6 @@ export async function listChannelMetrics(request: FastifyRequest, reply: Fastify
 
       if (error instanceof ResourceNotFound) {
         return reply.code(404).send({ error: 'Channel not found.'})
-      }
-  
-      if (error instanceof ZodError) {
-        return reply.code(500).send({ error: 'Internal Server Error', message: error.message })
       }
   
       return reply.code(500).send({ error: 'Internal Server Error' })

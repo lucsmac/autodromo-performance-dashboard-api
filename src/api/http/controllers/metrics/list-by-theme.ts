@@ -26,5 +26,7 @@ export async function listAverageChannelsMetricsByTheme(request: FastifyRequest,
       })
   } catch (error) {
     console.error(error);
+    
+    return reply.code(500).send({ error: 'Internal Server Error.'})
   }
 }
