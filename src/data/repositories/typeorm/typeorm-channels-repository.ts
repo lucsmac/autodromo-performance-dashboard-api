@@ -12,6 +12,10 @@ export class TypeormChannelsRepository implements ChannelsRepository {
     await channelRepository.save(channelData)
   }
 
+  async update(channel_id: string, data: Partial<IChannel>) {
+    await channelRepository.update(channel_id, data)
+  }
+
   async delete(channelId: string): Promise<void> {
     await channelRepository.delete(channelId)
   }
