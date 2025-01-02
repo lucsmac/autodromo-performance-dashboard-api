@@ -1,10 +1,12 @@
 import { FastifyInstance } from "fastify"
 import { listChannels } from "./list"
-import { showOneChannel } from "./show-one"
+import { listChannelsByTheme } from "./list-by-theme"
 import { createChannel } from "./create"
+import { deleteChannel } from "./delete"
 
 export async function channelsRoutes(server: FastifyInstance) {
   server.get('/', listChannels)
   server.post('/', createChannel)
-  server.get('/theme/:theme', showOneChannel)
+  server.delete('/:channel_id', deleteChannel)
+  server.get('/theme/:theme', listChannelsByTheme)
 }
