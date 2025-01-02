@@ -1,13 +1,14 @@
 import 'dotenv/config';
 import { DataSource } from 'typeorm';
+import { env } from '../../config/env';
 
 export const dataSource = new DataSource({
   type: 'postgres',
-  host: process.env.TIMESCALEDB_HOST,
+  host: env.TIMESCALEDB_HOST,
   port: 5432,
-  username: process.env.TIMESCALEDB_USER,
-  password: process.env.TIMESCALEDB_PASSWORD,
-  database: process.env.TIMESCALEDB_DB,
+  username: env.TIMESCALEDB_USER,
+  password: env.TIMESCALEDB_PASSWORD,
+  database: env.TIMESCALEDB_DB,
   synchronize: false,
   logging: true,
   entities: [
