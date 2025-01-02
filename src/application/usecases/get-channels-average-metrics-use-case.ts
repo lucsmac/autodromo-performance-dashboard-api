@@ -8,18 +8,18 @@ type GetMetricsAverageParams = {
   period: 'hourly' | 'daily' | 'weekly'
   startDate?: string
   endDate?: string
-  channel_id?: string
+  theme?: string
 }
 
-interface GetChannelAverageMetricsUseCaseRequest {
+interface GetChannelsAverageMetricsUseCaseRequest {
   metric?: MetricsOptions
   filterPeriodOptions: GetMetricsAverageParams
 }
 
-export class GetChannelAverageMetricsUseCase {
+export class GetChannelsAverageMetricsUseCase {
   constructor (private metricsRepository: MetricsRepository) {}
   
-  async execute({ metric, filterPeriodOptions }: GetChannelAverageMetricsUseCaseRequest) {
+  async execute({ metric, filterPeriodOptions }: GetChannelsAverageMetricsUseCaseRequest) {
     const metricsAverage = await this._getMetricsByPeriod(filterPeriodOptions)
   
     const allMetricsResponseData = metricsAverage as PerformanceAverageMetricsResponse[]
@@ -31,8 +31,8 @@ export class GetChannelAverageMetricsUseCase {
     return filteredMetricsData
   }
 
-  async _getMetricsByPeriod({ period, startDate = '2000-01-01', endDate, channel_id }: GetMetricsAverageParams) {
-    if (!period || channel_id) {
+  async _getMetricsByPeriod({ period, startDate = '2000-01-01', endDate, theme }: GetMetricsAverageParams) {
+    if (!period) {
       return null
     }
 
@@ -45,7 +45,8 @@ export class GetChannelAverageMetricsUseCase {
     const parsedStartDate = parseISO(startDate)
     const parsedEndDate = endDate ? endOfDay(parseISO(endDate)) : new Date()
     
-    const queryParams = [dateTrunc, parsedStartDate, parsedEndDate, channel_id]
+    const queryParams = [dateTrunc, parsedStartDate, parsedEndDate]
+    if (theme) queryParams.push(theme)
   
     const results = await this.metricsRepository.query(
       `
@@ -59,8 +60,8 @@ export class GetChannelAverageMetricsUseCase {
         AVG(tbt) AS avg_tbt,
         AVG(cls) AS avg_cls
       FROM metrics
-      INNER JOIN channel c ON metrics.channel_id = c.id
-      WHERE time BETWEEN $2 AND $3 AND c.id = $4
+      ${theme ? 'INNER JOIN channel c ON metrics.channel_id = c.id' : ''}
+      WHERE time BETWEEN $2 AND $3 ${theme ? 'AND c.theme = $4' : ''}
       GROUP BY
         DATE_TRUNC($1, time)
       ORDER BY
