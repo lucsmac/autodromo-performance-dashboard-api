@@ -23,7 +23,7 @@ export class GetChannelAverageMetricsUseCase {
     const metricsAverage = await this._getMetricsByPeriod(filterPeriodOptions)
   
     const allMetricsResponseData = metricsAverage as PerformanceAverageMetricsResponse[]
-    
+
     if (!metric) return allMetricsResponseData
       
     const filteredMetricsData = filterByAverageMetric(metric, allMetricsResponseData)
@@ -32,7 +32,7 @@ export class GetChannelAverageMetricsUseCase {
   }
 
   async _getMetricsByPeriod({ period, startDate = '2000-01-01', endDate, channel_id }: GetMetricsAverageParams) {
-    if (!period || channel_id) {
+    if (!period || !channel_id) {
       return null
     }
 
@@ -57,7 +57,9 @@ export class GetChannelAverageMetricsUseCase {
         AVG(si) AS avg_si,
         AVG(lcp) AS avg_lcp,
         AVG(tbt) AS avg_tbt,
-        AVG(cls) AS avg_cls
+        AVG(cls) AS avg_cls,
+        MIN(score) AS min_score,
+        MAX(score) AS max_score
       FROM metrics
       INNER JOIN channel c ON metrics.channel_id = c.id
       WHERE time BETWEEN $2 AND $3 AND c.id = $4

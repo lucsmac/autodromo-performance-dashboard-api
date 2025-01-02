@@ -1,11 +1,14 @@
+import { SetCollectClientsChannelMetricsJobsUseCase } from "../../application/usecases/set-collect-clients-channel-metrics-jobs-use-case";
+import { SetCollectReferencesChannelMetricsJobsUseCase } from "../../application/usecases/set-collect-references-channel-metrics-jobs-use-case";
 import { TypeormChannelsRepository } from "../../data/repositories/typeorm/typeorm-channels-repository"
-import { SetCollectClientsChannelMetricsJobsUseCase } from "../usecases/set-collect-clients-channel-metrics-jobs-use-case"
-import { SetCollectReferencesChannelMetricsJobsUseCase } from "../usecases/set-collect-references-channel-metrics-jobs-use-case"
 
 const channelsRepository = new TypeormChannelsRepository()
 
-const setCollectClientsChannelMetricsJobsUseCase = new SetCollectClientsChannelMetricsJobsUseCase(channelsRepository)
-const setCollectReferencesChannelMetricsJobsUseCase = new SetCollectReferencesChannelMetricsJobsUseCase(channelsRepository)
+const setCollectClientsChannelMetricsJobsUseCase =
+  new SetCollectClientsChannelMetricsJobsUseCase(channelsRepository)
+  
+const setCollectReferencesChannelMetricsJobsUseCase =
+  new SetCollectReferencesChannelMetricsJobsUseCase(channelsRepository)
 
 export async function setCollectMetricsJobs() {
   try {

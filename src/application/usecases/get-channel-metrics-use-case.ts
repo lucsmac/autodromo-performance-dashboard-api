@@ -1,10 +1,10 @@
 import { filterByDate } from "../../utils/filter-by-date";
 import { filterByMetric } from "../../utils/filter-by-metric";
-import { MetricsOptions } from "../../api/http/controllers/channel-metrics/utils/list-route-schemas";
 import { ChannelsRepository } from "../../data/repositories/channels-repository";
 import { MetricsRepository } from "../../data/repositories/metrics-repository";
 import { PerformanceMetricsResponse } from "../../domain/types/metrics";
 import { ResourceNotFound } from "../../domain/errors/resource-not-found";
+import { MetricsOptions } from "../../api/http/controllers/channel-metrics/utils/metrics-schemas";
 
 interface ChannelMetricsFilterOptions {
   metric?: MetricsOptions

@@ -59,10 +59,8 @@ export class GetChannelsAverageMetricsUseCase {
         AVG(lcp) AS avg_lcp,
         AVG(tbt) AS avg_tbt,
         AVG(cls) AS avg_cls,
-        PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY score) AS mediana,
-        PERCENTILE_CONT(0.85) WITHIN GROUP (ORDER BY score) AS percentil_85,
-        PERCENTILE_CONT(0.95) WITHIN GROUP (ORDER BY score) AS percentil_95,
-        PERCENTILE_CONT(0.99) WITHIN GROUP (ORDER BY score) AS percentil_99
+        MIN(score) AS min_score,
+        MAX(score) AS max_score
       FROM metrics
       ${theme ? 'INNER JOIN channel c ON metrics.channel_id = c.id' : ''}
       WHERE time BETWEEN $2 AND $3 ${theme ? 'AND c.theme = $4' : ''}
