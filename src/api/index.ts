@@ -1,11 +1,14 @@
 import Fastify from 'fastify'
 import { appRoutes } from './http/routes'
 import { env } from '../config/env';
+import { ZodTypeProvider } from 'fastify-type-provider-zod';
+import { setupSwagger } from './docs/setup-swagger';
 
 const server = Fastify({
   logger: true
-})
+}).withTypeProvider<ZodTypeProvider>()
 
+server.register(setupSwagger)
 server.register(appRoutes);
 
 try {
