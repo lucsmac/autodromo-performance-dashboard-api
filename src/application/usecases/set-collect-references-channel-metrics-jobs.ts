@@ -1,5 +1,5 @@
 import { JobsOptions } from "bullmq";
-import { addCollectChannelsPerformanceMetricsJobsToQueue } from "../services/add-collect-channels-performance-metrics-jobs-to-queue";
+import { AddCollectChannelsPerformanceMetricsJobsToQueue } from "../services/add-collect-channels-performance-metrics-jobs-to-queue";
 import { IChannel } from "../../domain/entities/channel.interface";
 import { TypeormChannelsRepository } from "../../data/repositories/typeorm/typeorm-channels-repository";
 
@@ -14,5 +14,8 @@ export async function setCollectChannelMetricsJobs() {
   const channelRepository = new TypeormChannelsRepository()
   const referencesChannelsList: IChannel[] = await channelRepository.listAllReferences() as IChannel[]
 
-  addCollectChannelsPerformanceMetricsJobsToQueue(referencesChannelsList, referenceChannelsConfig)
+  const addCollectChannelsPerformanceMetricsJobsToQueue =
+    new AddCollectChannelsPerformanceMetricsJobsToQueue()
+  addCollectChannelsPerformanceMetricsJobsToQueue
+    .execute(referencesChannelsList, referenceChannelsConfig)
 }
