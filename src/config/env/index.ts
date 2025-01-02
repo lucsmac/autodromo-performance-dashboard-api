@@ -3,6 +3,7 @@ import { z } from 'zod'
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['dev', 'test', 'production']).default('dev'),
+  API_PORT: z.coerce.number().default(3000),
   GOOGLE_API_KEY: z.string(),
   TIMESCALEDB_HOST: z.string().default('localhost'),
   TIMESCALEDB_PORT: z.number().default(5432),
