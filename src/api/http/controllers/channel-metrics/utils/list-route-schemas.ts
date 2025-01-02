@@ -1,8 +1,5 @@
 import { z } from "zod";
-
-const metricEnum = ["score", "responseTime", "fcp", "si", "lcp", "tbt", "cls"] as const;
-export type MetricsOptions = (typeof metricEnum)[number];
-const MetricEnum = z.enum(metricEnum);
+import { MetricEnum } from "./metrics-schemas";
 
 export const querySchema = z.object({
   metric: MetricEnum.optional(),

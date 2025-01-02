@@ -1,8 +1,9 @@
 import Fastify from 'fastify'
-import { channelRoutes } from './routes/channel'
-import { channelsRoutes } from './routes/channels'
+
+import { createBoard } from './http/controllers/bull-board/ui'
+import { channelRoutes } from './http/controllers/channel-metrics/routes'
+import { channelsRoutes } from './http/controllers/channels/routes'
 import { metricsRoutes } from './routes/metrics'
-import { createBoard } from './routes/bull-board'
 
 const server = Fastify({
   logger: true

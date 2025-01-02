@@ -10,7 +10,7 @@ const referenceChannelsConfig: JobsOptions = {
   }
 }
 
-export class SetCollectReferencesChannelMetricsJobs {
+export class SetCollectReferencesChannelMetricsJobsUseCase {
   constructor (private channelsRepository: ChannelsRepository) {}
   
   async execute() {

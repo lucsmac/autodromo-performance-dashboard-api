@@ -5,7 +5,7 @@ import { clientsQueue } from "../../infra/queue/queues/clients-queue";
 import { IChannel } from "../../domain/entities/channel.interface";
 import { ChannelsRepository } from "../../data/repositories/channels-repository";
 
-export class SetCollectClientsChannelMetricsJobs {
+export class SetCollectClientsChannelMetricsJobsUseCase {
   constructor (private channelsRepository: ChannelsRepository) {}
   
   async execute() {

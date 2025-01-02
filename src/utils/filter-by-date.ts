@@ -1,5 +1,5 @@
 import { endOfDay, parseISO } from 'date-fns';
-import { Metrics, PerformanceMetricsResponse } from '../../../../domain/types/metrics'
+import { Metrics, PerformanceMetricsResponse } from '../domain/types/metrics'
 
 type FilterDateOptions = {
   startDate?: string
