@@ -1,8 +1,4 @@
 services:
-  build:
-    context: .
-    dockerfile: Dockerfile.prod
-
   redis:
     image: redis:latest
     container_name: redis-container
@@ -29,7 +25,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     container_name: atd-dashboard-api
     ports:
       - "3000:3000"
