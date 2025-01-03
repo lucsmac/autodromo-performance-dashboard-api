@@ -3,15 +3,15 @@ import 'reflect-metadata';
 
 import { connection } from './infra/db/connection';
 
-import './infra/queue/queues/my-queue';
-import './infra/queue/workers/my-worker';
-import './usecases/collect-channels-performance-metrics/index';
+import './infra/queue/queues/main-queue';
+import './infra/queue/queues/clients-queue';
+import './infra/queue/workers/default-workers';
 
-import { setCollectChannelMetricsJobs } from './usecases/collect-channels-performance-metrics/index';
+import './api'
+import { setCollectMetricsJobs } from './collector/handlers/set-collect-metrics-jobs';
 
 connection()
   .then(() => {
-    console.log('Application is running at port 3333! 🚀');
-    setCollectChannelMetricsJobs();
+    setCollectMetricsJobs()
+    console.log('Metrics are being collected correctly')
   })
-  

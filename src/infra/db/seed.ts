@@ -1,15 +1,15 @@
 import "reflect-metadata"
-import { Channel } from '../../data/types/channel'
 import { getThemesData } from '../../utils/get-themes-data'
-import { ChannelRepository } from "../../data/repositories/channel-repository"
 import { connection } from './connection'
+import { IChannel } from "../../domain/entities/channel.interface"
+import { TypeormChannelsRepository } from "../../data/repositories/typeorm/typeorm-channels-repository"
 
 export async function seedDb() {
   try {
-    const channelsSeedData: Channel[] = await getThemesData()
-    const channelRepository = new ChannelRepository();
+    const channelsSeedData: IChannel[] = await getThemesData()
+    const channelRepository = new TypeormChannelsRepository();
 
-    channelsSeedData.forEach((channelData: Channel) => {
+    channelsSeedData.forEach((channelData: IChannel) => {
       channelRepository.create(channelData)
     })
 

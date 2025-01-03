@@ -1,12 +1,8 @@
-import { dataSource } from "../../infra/db/data-source";
-import { Metrics as MetricsModel } from "../entities/Metrics";
-import { Metrics } from "../types/metrics";
+import { IChannel } from "../../domain/entities/channel.interface";
+import { IMetrics, IMetricsUnchecked } from "../../domain/entities/metrics.interface";
 
-const metricsRepository = dataSource.getRepository(MetricsModel);
-
-export class MetricsRepository {
-  async create(params: Metrics) {
-    const metricsData = metricsRepository.create(params)
-    await metricsRepository.save(metricsData)
-  }
+export interface MetricsRepository {
+  create(params: IMetricsUnchecked): Promise<void>
+  listByChannel(channel: IChannel): Promise<IMetrics[]>
+  query(query: string, parameters: unknown[]): Promise<unknown>
 }
