@@ -1,24 +1,25 @@
-import Fastify from 'fastify'
-import { appRoutes } from './http/routes'
+import Fastify from 'fastify';
+import { appRoutes } from './http/routes';
 import { env } from '../config/env';
-import { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { setupSwagger } from './docs/setup-swagger';
 
-const server = Fastify({
-  logger: true
-}).withTypeProvider<ZodTypeProvider>()
+import fastifySwagger from '@fastify/swagger';
+import fastifySwaggerUi from '@fastify/swagger-ui';
+import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod';
 
-server.register(setupSwagger)
+const server = Fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
+
+server.setValidatorCompiler(validatorCompiler);
+server.setSerializerCompiler(serializerCompiler);
+
+server.register(fastifySwagger);
+server.register(fastifySwaggerUi, { routePrefix: '/docs' });
 server.register(appRoutes);
 
-try {
-  const startServer = async () => {
-    await server.listen({ port: env.API_PORT, host: '0.0.0.0' })
-  }
-
-  startServer()
-  console.log('Application is running at port 3000! 🚀');
-} catch (err) {
-  server.log.error(err)
-  process.exit(1)
-}
+server.listen({ port: env.API_PORT, host: '0.0.0.0' })
+  .then(() => {
+    console.log(`Application is running at port ${env.API_PORT}! 🚀`);
+  })
+  .catch((err) => {
+    server.log.error(err);
+    process.exit(1);
+  });
