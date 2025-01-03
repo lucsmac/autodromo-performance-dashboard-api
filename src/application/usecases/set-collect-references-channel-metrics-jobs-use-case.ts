@@ -16,6 +16,12 @@ export class SetCollectReferencesChannelMetricsJobsUseCase {
   async execute() {
     const referencesChannelsList: IChannel[] = await this.channelsRepository.listAllReferences() as IChannel[]
 
+    if (!referencesChannelsList || referencesChannelsList.length === 0) {
+      console.log('No reference channels available to collect metrics.')
+      
+      return
+    }
+    
     const addCollectChannelsPerformanceMetricsJobsToQueue =
       new AddCollectChannelsPerformanceMetricsJobsToQueue()
     addCollectChannelsPerformanceMetricsJobsToQueue

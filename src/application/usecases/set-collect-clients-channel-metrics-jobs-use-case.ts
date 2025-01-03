@@ -10,6 +10,12 @@ export class SetCollectClientsChannelMetricsJobsUseCase {
   
   async execute() {
     const clientsChannelsList: IChannel[] = await this.channelsRepository.listAllClients() as IChannel[]
+    
+    if (!clientsChannelsList || clientsChannelsList.length === 0) {
+      console.log('No clients channels available to collect metrics.')
+      
+      return
+    }
   
     const chunkedChannelsArray = chunkArray(clientsChannelsList, 150)
   
