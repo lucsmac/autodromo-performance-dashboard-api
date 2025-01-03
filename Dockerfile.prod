@@ -1,25 +1,35 @@
-# Usando uma imagem oficial do Node.js para build
-FROM node:lts AS builder
+# Use uma imagem oficial do Node.js baseada em uma versão LTS
+FROM node:lts-slim AS build
 
+# Defina o diretório de trabalho na imagem
 WORKDIR /usr/src/app
 
+# Copie apenas os arquivos necessários para instalar dependências
 COPY package*.json ./
-RUN npm install --production
 
+# Instale as dependências, incluindo as de desenvolvimento
+RUN npm install
+
+# Copie o código restante da aplicação
 COPY . .
+
+# Execute o build da aplicação (gerando os arquivos necessários)
 RUN npm run build
 
-# Usando uma imagem leve para execução
-FROM node:lts-slim AS runtime
+# Remova as dependências de desenvolvimento para otimizar o tamanho da imagem final
+RUN npm prune --production
 
+# Segunda etapa: Usar uma imagem mínima para o ambiente de produção
+FROM node:lts-slim
+
+# Defina o diretório de trabalho na imagem final
 WORKDIR /usr/src/app
 
-COPY --from=builder /usr/src/app/dist ./dist
-COPY --from=builder /usr/src/app/node_modules ./node_modules
-COPY --from=builder /usr/src/app/package.json ./package.json
+# Copie apenas os arquivos necessários da imagem de build
+COPY --from=build /usr/src/app /usr/src/app
 
-ENV NODE_ENV=production
-
+# Exponha a porta que a aplicação vai rodar
 EXPOSE 3000
 
-CMD ["node", "dist/index.js"]
+# Comando para rodar a aplicação em produção
+CMD ["npm", "run", "start"]
