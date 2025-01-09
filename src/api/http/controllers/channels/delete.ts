@@ -11,6 +11,8 @@ export async function deleteChannel(request: FastifyRequest, reply: FastifyReply
     const deleteChannelUseCase = new DeleteChannelUseCase(channelsRepository)
 
     await deleteChannelUseCase.execute(channel_id)
+
+    return reply.code(204).send()
   } catch(error) {
     console.log(error)
 

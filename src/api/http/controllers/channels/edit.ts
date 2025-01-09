@@ -12,6 +12,8 @@ export async function editChannel(request: FastifyRequest, reply: FastifyReply) 
     const editChannelUseCase = new EditChannelUseCase(channelsRepository)
 
     await editChannelUseCase.execute(channel_id, dataToUpdate)
+
+    return reply.code(204).send()
   } catch(error) {
     console.error(error)
 

@@ -53,6 +53,16 @@ export class TypeormChannelsRepository implements ChannelsRepository {
 
     return channelsByTheme
   }
+  
+  async findByLink(link: string): Promise<IChannel | null> {
+    const channel = await channelRepository.findOne({
+      where: {
+        internal_link: link
+      }
+    })
+
+    return channel
+  }
 
   async findById(id: string): Promise<IChannel | null> {
     const channel = await channelRepository.findOne({

@@ -31,7 +31,7 @@ export async function listChannelMetrics(request: FastifyRequest, reply: Fastify
       console.error(error)
 
       if (error instanceof ResourceNotFound) {
-        return reply.code(404).send({ error: 'Channel not found.'})
+        return reply.code(404).send({ message: error.message})
       }
   
       return reply.code(500).send({ error: 'Internal Server Error' })
