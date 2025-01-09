@@ -1,6 +1,6 @@
 import { MetricsRepository } from "../../data/repositories/metrics-repository";
-import { IMetricsUnchecked } from "../../domain/entities/metrics.interface";
-import { PerformanceResult } from "../../domain/types/lighthouse-api-response";
+import { IMetricsUnchecked } from "../../models/entities/metrics.interface";
+import { PerformanceResult } from "../../models/types/lighthouse-api-response";
 import { adaptLighthouseResultsToMetrics, setUpQuery } from "../../utils";
 
 export class CreateCollectMetricsJob {

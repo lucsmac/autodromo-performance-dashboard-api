@@ -14,7 +14,7 @@ export const dataSource = new DataSource({
   synchronize: false,
   logging: true,
   entities: [
-    `${rootFolder}/domain/entities/*.{js,ts}`
+    `${rootFolder}/models/entities/*.{js,ts}`
   ],
   migrations: [
     `${rootFolder}/infra/db/migration/*.{js,ts}`

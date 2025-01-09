@@ -1,6 +1,6 @@
 import { endOfDay, parseISO } from "date-fns";
 import { MetricsRepository } from "../../data/repositories/metrics-repository";
-import { PerformanceAverageMetricsResponse } from "../../domain/types/metrics";
+import { PerformanceAverageMetricsResponse } from "../../models/types/metrics";
 import { MetricsOptions } from "../../api/http/controllers/channel-metrics/utils/metrics-schemas";
 import { filterByAverageMetric } from "../../utils/filter-by-average-metrics";
 

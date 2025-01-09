@@ -1,6 +1,6 @@
-import { IChannel } from "../../../domain/entities/channel.interface";
-import { Metrics as MetricsModel } from "../../../domain/entities/metrics";
-import { IMetrics, IMetricsUnchecked } from "../../../domain/entities/metrics.interface";
+import { IChannel } from "../../../models/entities/channel.interface";
+import { Metrics as MetricsModel } from "../../../models/entities/metrics";
+import { IMetrics, IMetricsUnchecked } from "../../../models/entities/metrics.interface";
 import { dataSource } from "../../../infra/db/data-source";
 import { MetricsRepository } from "../metrics-repository";
 

@@ -1,5 +1,5 @@
-import { IChannel } from "../../domain/entities/channel.interface";
-import { IMetrics, IMetricsUnchecked } from "../../domain/entities/metrics.interface";
+import { IChannel } from "../../models/entities/channel.interface";
+import { IMetrics, IMetricsUnchecked } from "../../models/entities/metrics.interface";
 
 export interface MetricsRepository {
   create(params: IMetricsUnchecked): Promise<void>

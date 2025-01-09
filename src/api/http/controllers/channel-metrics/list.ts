@@ -3,7 +3,7 @@ import { querySchema, requestParamsSchema } from "./utils/list-route-schemas";
 import { TypeormChannelsRepository } from "../../../../data/repositories/typeorm/typeorm-channels-repository";
 import { TypeormMetricsRepository } from "../../../../data/repositories/typeorm/typeorm-metrics-repository";
 import { GetChannelMetricsUseCase } from "../../../../application/usecases/get-channel-metrics-use-case";
-import { ResourceNotFound } from "../../../../domain/errors/resource-not-found";
+import { ResourceNotFound } from "../../../../models/errors/resource-not-found";
 
 export async function listChannelMetrics(request: FastifyRequest, reply: FastifyReply) {
   try {

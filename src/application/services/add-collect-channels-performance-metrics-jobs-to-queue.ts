@@ -1,6 +1,6 @@
 import { JobsOptions, Queue } from "bullmq";
 import { mainQueue } from "../../infra/queue/queues/main-queue";
-import { IChannel } from "../../domain/entities/channel.interface";
+import { IChannel } from "../../models/entities/channel.interface";
 
 const defaultConfig: JobsOptions = {
   removeOnComplete: {
