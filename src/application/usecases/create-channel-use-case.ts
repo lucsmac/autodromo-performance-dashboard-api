@@ -19,12 +19,14 @@ export class CreateChannelUseCase {
       throw new ChannelAlreadyExists()
     }
     
-    await this.channelsRepository.create({
+    const createdChannel = await this.channelsRepository.create({
       domain,
       internal_link,
       name,
       theme,
       is_reference
     })
+
+    return createdChannel
   }
 }

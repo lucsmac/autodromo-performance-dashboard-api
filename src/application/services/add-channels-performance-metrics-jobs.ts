@@ -1,6 +1,7 @@
 import { JobsOptions, Queue } from "bullmq";
 import { mainQueue } from "../../infra/queue/queues/main-queue";
 import { IChannel } from "../../models/entities/channel.interface";
+import { AddChannelPerformanceMetricsJobs } from "./add-channel-performance-metrics-jobs";
 
 const defaultConfig: JobsOptions = {
   removeOnComplete: {
@@ -16,7 +17,7 @@ interface Config {
   queue?: Queue
 }
 
-export class AddCollectChannelsPerformanceMetricsJobsToQueue{
+export class AddChannelsPerformanceMetricsJobs{
   async execute(channelsList: IChannel[], customJobConfig: JobsOptions = {}, config: Config = {}) {
     if (channelsList?.length === 0) {
       console.log('We have no channels to see metrics.')
@@ -24,22 +25,21 @@ export class AddCollectChannelsPerformanceMetricsJobsToQueue{
     }
 
     const queue = config.queue || mainQueue
+    const addChannelCollectJob = new AddChannelPerformanceMetricsJobs()
     
-    channelsList.forEach(async (channel: IChannel) => {
-      await queue.add(
-        'collectChannelPerformanceMetric',
-        {
-          channelUrl: channel.internal_link,
-          channelId: channel.id
-        },
-        {
-          ...defaultConfig,
-          ...customJobConfig,
-          jobId: `collect-metrics-${channel.id}`
-        }
-      )
-    })
+    for(const channel of channelsList) {
+      const config = {
+        ...defaultConfig,
+        ...customJobConfig
+      }
+
+      await addChannelCollectJob.execute(channel, config, queue)
+    }
     
+    this.successLog(channelsList, customJobConfig)
+  }
+
+  successLog(channelsList: IChannel[], customJobConfig: JobsOptions) {
     console.log(`Collect metrics from ${channelsList?.length} channels with these custom config: ${JSON.stringify(customJobConfig)}.`)
   }
 }

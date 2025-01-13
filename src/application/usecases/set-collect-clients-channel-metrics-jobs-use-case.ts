@@ -1,5 +1,5 @@
 import { JobsOptions } from "bullmq";
-import { AddCollectChannelsPerformanceMetricsJobsToQueue } from "../services/add-collect-channels-performance-metrics-jobs-to-queue";
+import { AddChannelsPerformanceMetricsJobs } from "../services/add-channels-performance-metrics-jobs";
 import { chunkArray } from "../../utils/chunk-array";
 import { clientsQueue } from "../../infra/queue/queues/clients-queue";
 import { IChannel } from "../../models/entities/channel.interface";
@@ -27,10 +27,10 @@ export class SetCollectClientsChannelMetricsJobsUseCase {
         }
       }
       
-      const addCollectChannelsPerformanceMetricsJobsToQueue =
-        new AddCollectChannelsPerformanceMetricsJobsToQueue()
+      const addChannelsPerformanceMetricsJobs =
+        new AddChannelsPerformanceMetricsJobs()
 
-      addCollectChannelsPerformanceMetricsJobsToQueue
+      addChannelsPerformanceMetricsJobs
         .execute(channelsChunk, customConfig, { queue: clientsQueue })
     })
   }

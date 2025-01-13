@@ -1,7 +1,7 @@
 import { IChannel } from "../../models/entities/channel.interface";
 
 export interface ChannelsRepository {
-  create(params: IChannel): Promise<void>
+  create(params: IChannel): Promise<IChannel>
   delete(channelId: string): Promise<void>
   listAll(): Promise<IChannel[]>
   listAllReferences(): Promise<IChannel[]>

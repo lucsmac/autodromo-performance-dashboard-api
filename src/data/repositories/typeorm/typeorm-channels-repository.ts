@@ -7,9 +7,11 @@ import { ChannelsRepository } from "../channels-repository";
 const channelRepository = dataSource.getRepository<ChannelModel>(ChannelModel);
 
 export class TypeormChannelsRepository implements ChannelsRepository {
-  async create(params: IChannel): Promise<void> {
+  async create(params: IChannel): Promise<IChannel> {
     const channelData = channelRepository.create(params)
-    await channelRepository.save(channelData)
+    const createdChannel = await channelRepository.save(channelData)
+
+    return createdChannel
   }
 
   async update(channel_id: string, data: Partial<IChannel>) {

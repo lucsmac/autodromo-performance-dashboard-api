@@ -1,5 +1,5 @@
 import { JobsOptions } from "bullmq";
-import { AddCollectChannelsPerformanceMetricsJobsToQueue } from "../services/add-collect-channels-performance-metrics-jobs-to-queue";
+import { AddChannelsPerformanceMetricsJobs } from "../services/add-channels-performance-metrics-jobs";
 import { IChannel } from "../../models/entities/channel.interface";
 import { ChannelsRepository } from "../../data/repositories/channels-repository";
 
@@ -13,8 +13,8 @@ const referenceChannelsConfig: JobsOptions = {
 export class SetCollectReferencesChannelMetricsJobsUseCase {
   constructor (private channelsRepository: ChannelsRepository) {}
   
-  async execute() {
-    const referencesChannelsList: IChannel[] = await this.channelsRepository.listAllReferences() as IChannel[]
+  async execute(channels: IChannel[] = []) {
+    const referencesChannelsList: IChannel[] = channels ? channels : await this.channelsRepository.listAllReferences() as IChannel[]
 
     if (!referencesChannelsList || referencesChannelsList.length === 0) {
       console.log('No reference channels available to collect metrics.')
@@ -22,9 +22,8 @@ export class SetCollectReferencesChannelMetricsJobsUseCase {
       return
     }
     
-    const addCollectChannelsPerformanceMetricsJobsToQueue =
-      new AddCollectChannelsPerformanceMetricsJobsToQueue()
-    addCollectChannelsPerformanceMetricsJobsToQueue
+    const addChannelsPerformanceMetricsJobs = new AddChannelsPerformanceMetricsJobs()
+    addChannelsPerformanceMetricsJobs
       .execute(referencesChannelsList, referenceChannelsConfig)
   }
 }

@@ -3,6 +3,7 @@ import { TypeormChannelsRepository } from "../../../../data/repositories/typeorm
 import { CreateChannelUseCase } from "../../../../application/usecases/create-channel-use-case";
 import { createChannelBodySchema } from "./utils/create-route-schemas";
 import { ChannelAlreadyExists } from "../../../../models/errors/channel-already-exists";
+import { AddJobOnCreateChannel } from "../../../../application/services/add-job-on-create-channel";
 
 export async function createChannel(request: FastifyRequest, reply: FastifyReply) {
   try {
@@ -17,7 +18,10 @@ export async function createChannel(request: FastifyRequest, reply: FastifyReply
     const channelsRepository = new TypeormChannelsRepository()
     const createChannelUseCase = new CreateChannelUseCase(channelsRepository)
     
-    await createChannelUseCase.execute({ domain, internal_link, is_reference, name, theme})
+    const createdChannel = await createChannelUseCase.execute({ domain, internal_link, is_reference, name, theme})
+
+    const addJobOnCreateChannel = new AddJobOnCreateChannel(channelsRepository)
+    addJobOnCreateChannel.execute(createdChannel)
 
     return reply.code(201).send()
   } catch(error) {
