@@ -1,6 +1,6 @@
 ## Autodromo Performance Dashboard
 
-> Dassboard de acompanhamento de performance dos sites do Autodromo.
+> Dashboard de acompanhamento de performance dos sites do Autodromo.
 
 ### Stack
 
@@ -18,7 +18,7 @@
   `cd autodromo-performance-dashboard-api`
 - Configure as variáveis de ambiente;
 - Execute o build com o Docker:
-  `docker-compose up --build`;
+  `docker-compose -f docker-compose.dev.yml up --build`;
 - Abra o endereço localhost na rota "/docs" e confira se a aplicação está funcionando corretamente. Uma outra opção é rodar o comando `docker-compose logs -f` ou o abrir o Docker Desktop para verificar os logs.
 
 ## Deploy (AWS)
