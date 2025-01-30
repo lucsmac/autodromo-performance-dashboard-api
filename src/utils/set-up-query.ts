@@ -1,4 +1,4 @@
-import { env } from "../config/env";
+import { env } from "@/config/env";
 
 export function setUpQuery(url: string): string {
   const api = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed';

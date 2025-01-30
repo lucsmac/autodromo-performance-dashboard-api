@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { TypeormChannelsRepository } from "../../../../data/repositories/typeorm/typeorm-channels-repository";
 import { FastifyReply, FastifyRequest } from "fastify";
+import { TypeormChannelsRepository } from "@/data/repositories/typeorm";
 
 export async function listChannelsByTheme(request: FastifyRequest, reply: FastifyReply) {
   try {

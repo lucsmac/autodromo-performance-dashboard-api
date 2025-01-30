@@ -1,9 +1,9 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { TypeormChannelsRepository } from "../../../../data/repositories/typeorm/typeorm-channels-repository";
-import { CreateChannelUseCase } from "../../../../application/usecases/create-channel-use-case";
+import { TypeormChannelsRepository } from "@/data/repositories/typeorm";
+import { CreateChannelUseCase } from "@/application/usecases";
 import { createChannelBodySchema } from "./utils/create-route-schemas";
-import { ChannelAlreadyExists } from "../../../../models/errors/channel-already-exists";
-import { AddJobOnCreateChannel } from "../../../../application/services/add-job-on-create-channel";
+import { ChannelAlreadyExists } from "@/models/errors";
+import { AddJobOnCreateChannel } from "@/application/services";
 
 export async function createChannel(request: FastifyRequest, reply: FastifyReply) {
   try {

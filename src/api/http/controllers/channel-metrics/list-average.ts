@@ -1,8 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { querySchema } from "./utils/list-route-schemas";
 import { channelRequestParamsSchema } from "./utils/list-average-route-schemas";
-import { TypeormMetricsRepository } from "../../../../data/repositories/typeorm/typeorm-metrics-repository";
-import { GetChannelAverageMetricsUseCase } from "../../../../application/usecases/get-channel-average-metrics-use-case";
+import { TypeormMetricsRepository } from "@/data/repositories/typeorm";
+import { GetChannelAverageMetricsUseCase } from "@/application/usecases";
 
 export async function listAverageChannelMetrics(request: FastifyRequest, reply: FastifyReply) {
   try {

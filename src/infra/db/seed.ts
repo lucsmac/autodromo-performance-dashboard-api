@@ -1,8 +1,8 @@
 import "reflect-metadata"
-import { getThemesData } from '../../utils/get-themes-data'
 import { connection } from './connection'
-import { IChannel } from "../../models/entities/channel.interface"
-import { TypeormChannelsRepository } from "../../data/repositories/typeorm/typeorm-channels-repository"
+import { IChannel } from "@/models/entities"
+import { getThemesData } from '@/utils/get-themes-data'
+import { TypeormChannelsRepository } from "@/data/repositories/typeorm"
 
 export async function seedDb() {
   try {

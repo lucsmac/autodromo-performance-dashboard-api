@@ -1,7 +1,7 @@
 import { JobsOptions } from "bullmq";
-import { AddChannelsPerformanceMetricsJobs } from "../services/add-channels-performance-metrics-jobs";
-import { IChannel } from "../../models/entities/channel.interface";
-import { ChannelsRepository } from "../../data/repositories/channels-repository";
+import { AddChannelsPerformanceMetricsJobs } from "../services";
+import { IChannel } from "@/models/entities";
+import { ChannelsRepository } from "@/data/repositories";
 
 const referenceChannelsConfig: JobsOptions = {
   repeat: {

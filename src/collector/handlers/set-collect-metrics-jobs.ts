@@ -1,6 +1,8 @@
-import { SetCollectClientsChannelMetricsJobsUseCase } from "../../application/usecases/set-collect-clients-channel-metrics-jobs-use-case";
-import { SetCollectReferencesChannelMetricsJobsUseCase } from "../../application/usecases/set-collect-references-channel-metrics-jobs-use-case";
-import { TypeormChannelsRepository } from "../../data/repositories/typeorm/typeorm-channels-repository"
+import {
+  SetCollectClientsChannelMetricsJobsUseCase,
+  SetCollectReferencesChannelMetricsJobsUseCase
+} from "@/application/usecases";
+import { TypeormChannelsRepository } from "@/data/repositories/typeorm"
 
 const channelsRepository = new TypeormChannelsRepository()
 

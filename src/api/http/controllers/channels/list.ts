@@ -1,6 +1,6 @@
 import { FastifyReply } from "fastify";
-import { TypeormChannelsRepository } from "../../../../data/repositories/typeorm/typeorm-channels-repository";
-import { IChannel } from "../../../../models/entities/channel.interface";
+import { TypeormChannelsRepository } from "@/data/repositories/typeorm";
+import { IChannel } from "@/models/entities";
 
 export async function listChannels(_: unknown, reply: FastifyReply) {
   try {

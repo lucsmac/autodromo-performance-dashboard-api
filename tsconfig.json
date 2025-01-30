@@ -12,7 +12,10 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }, 
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]

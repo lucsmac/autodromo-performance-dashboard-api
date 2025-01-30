@@ -1,5 +1,5 @@
-import { ChannelsRepository } from "../../data/repositories/channels-repository";
-import { ChannelAlreadyExists } from "../../models/errors/channel-already-exists";
+import { ChannelsRepository } from "@/data/repositories";
+import { ChannelAlreadyExists } from "@/models/errors";
 
 interface CreateChannelUseCaseRequest {
   name: string;

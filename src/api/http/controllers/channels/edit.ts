@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { editChannelRequestBodySchema, editChannelRequestParamsSchema } from "./utils/edit-route-schemas";
-import { TypeormChannelsRepository } from "../../../../data/repositories/typeorm/typeorm-channels-repository";
-import { EditChannelUseCase } from "../../../../application/usecases/edit-channel-use-case";
+import { TypeormChannelsRepository } from "@/data/repositories/typeorm";
+import { EditChannelUseCase } from "@/application/usecases";
 
 export async function editChannel(request: FastifyRequest, reply: FastifyReply) {
   try {

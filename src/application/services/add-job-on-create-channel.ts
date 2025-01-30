@@ -1,7 +1,9 @@
-import { IChannel } from "../../models/entities/channel.interface";
-import { SetCollectReferencesChannelMetricsJobsUseCase } from "../usecases/set-collect-references-channel-metrics-jobs-use-case";
-import { SetCollectClientsChannelMetricsJobsUseCase } from "../usecases/set-collect-clients-channel-metrics-jobs-use-case";
-import { ChannelsRepository } from "../../data/repositories/channels-repository";
+import {
+  SetCollectReferencesChannelMetricsJobsUseCase,
+  SetCollectClientsChannelMetricsJobsUseCase
+} from "../usecases";
+import { ChannelsRepository } from "@/data/repositories";
+import { IChannel } from "@/models/entities";
 
 export class AddJobOnCreateChannel {
   constructor (private channelsRepository: ChannelsRepository) {}

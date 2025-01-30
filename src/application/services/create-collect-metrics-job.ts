@@ -1,7 +1,7 @@
-import { MetricsRepository } from "../../data/repositories/metrics-repository";
-import { IMetricsUnchecked } from "../../models/entities/metrics.interface";
-import { PerformanceResult } from "../../models/types/lighthouse-api-response";
-import { adaptLighthouseResultsToMetrics, setUpQuery } from "../../utils";
+import { MetricsRepository } from "@/data/repositories";
+import { IMetricsUnchecked } from "@/models/entities";
+import { PerformanceResult } from "@/models/types";
+import { adaptLighthouseResultsToMetrics, setUpQuery } from "@/utils";
 
 export class CreateCollectMetricsJob {
   constructor(private metricsRepository: MetricsRepository) {}

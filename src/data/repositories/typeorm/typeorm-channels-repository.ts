@@ -1,7 +1,6 @@
 import { IsNull } from "typeorm";
-import { Channel as ChannelModel } from "../../../models/entities/channel";
-import { dataSource } from "../../../infra/db/data-source";
-import { IChannel } from "../../../models/entities/channel.interface";
+import { Channel as ChannelModel, IChannel } from "@/models/entities";
+import { dataSource } from "@/infra/db/data-source";
 import { ChannelsRepository } from "../channels-repository";
 
 const channelRepository = dataSource.getRepository<ChannelModel>(ChannelModel);

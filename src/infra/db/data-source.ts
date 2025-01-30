@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { DataSource } from 'typeorm';
-import { env } from '../../config/env';
+import { env } from '@/config/env';
 
 const rootFolder = env.NODE_ENV === 'development' ? 'src' : 'dist'
 

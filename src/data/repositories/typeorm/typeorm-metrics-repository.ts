@@ -1,7 +1,10 @@
-import { IChannel } from "../../../models/entities/channel.interface";
-import { Metrics as MetricsModel } from "../../../models/entities/metrics";
-import { IMetrics, IMetricsUnchecked } from "../../../models/entities/metrics.interface";
-import { dataSource } from "../../../infra/db/data-source";
+import {
+  Metrics as MetricsModel,
+  IChannel,
+  IMetrics,
+  IMetricsUnchecked
+} from "@/models/entities";
+import { dataSource } from "@/infra/db/data-source";
 import { MetricsRepository } from "../metrics-repository";
 
 const metricsRepository = dataSource.getRepository<MetricsModel>(MetricsModel);

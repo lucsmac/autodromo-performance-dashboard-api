@@ -1,9 +1,9 @@
 import { JobsOptions } from "bullmq";
-import { AddChannelsPerformanceMetricsJobs } from "../services/add-channels-performance-metrics-jobs";
-import { chunkArray } from "../../utils/chunk-array";
-import { clientsQueue } from "../../infra/queue/queues/clients-queue";
-import { IChannel } from "../../models/entities/channel.interface";
-import { ChannelsRepository } from "../../data/repositories/channels-repository";
+import { AddChannelsPerformanceMetricsJobs } from "../services";
+import { chunkArray } from "@/utils/chunk-array";
+import { clientsQueue } from "@/infra/queue/queues";
+import { IChannel } from "@/models/entities";
+import { ChannelsRepository } from "@/data/repositories";
 
 export class SetCollectClientsChannelMetricsJobsUseCase {
   constructor (private channelsRepository: ChannelsRepository) {}

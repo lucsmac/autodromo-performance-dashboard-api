@@ -1,6 +1,6 @@
 import { Worker } from 'bullmq'
 import { RedisOptions } from 'ioredis'
-import { runChannelMetricsCollect } from '../../../collector/handlers/run-channel-metrics-collect'
+import { runChannelMetricsCollect } from '@/collector/handlers'
 
 const redisOptions: RedisOptions = {
   host: 'redis',

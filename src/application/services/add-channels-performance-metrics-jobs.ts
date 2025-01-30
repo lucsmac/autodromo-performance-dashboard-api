@@ -1,6 +1,6 @@
 import { JobsOptions, Queue } from "bullmq";
-import { mainQueue } from "../../infra/queue/queues/main-queue";
-import { IChannel } from "../../models/entities/channel.interface";
+import { mainQueue } from "@/infra/queue/queues";
+import { IChannel } from "@/models/entities";
 import { AddChannelPerformanceMetricsJobs } from "./add-channel-performance-metrics-jobs";
 
 const defaultConfig: JobsOptions = {

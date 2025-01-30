@@ -1,6 +1,6 @@
 import Fastify from 'fastify';
 import { appRoutes } from './http/routes';
-import { env } from '../config/env';
+import { env } from '@/config/env';
 
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';

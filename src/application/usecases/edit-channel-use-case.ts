@@ -1,6 +1,5 @@
-import { ChannelsRepository } from "../../data/repositories/channels-repository";
-import { NoDataProvided } from "../../models/errors/no-data-provided";
-import { ResourceNotFound } from "../../models/errors/resource-not-found";
+import { ChannelsRepository } from "@/data/repositories";
+import { NoDataProvided, ResourceNotFound } from "@/models/errors";
 
 interface DataToUpdateChannel {
   domain?: string;
