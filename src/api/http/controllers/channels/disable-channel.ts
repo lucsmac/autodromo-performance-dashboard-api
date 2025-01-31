@@ -1,20 +1,16 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { TypeormChannelsRepository } from "@/data/repositories/typeorm";
-import { deleteChannelRequestParamsSchema } from "./utils/delete-route-schemas";
-import { DeleteChannelUseCase } from "@/application/usecases";
 import { DeleteChannelCollectJobService } from "@/application/services";
+import { disableChannelRequestParamsSchema } from "./utils/disable-channel-route-schema";
 
-export async function deleteChannel(request: FastifyRequest, reply: FastifyReply) {
+export async function disableChannel(request: FastifyRequest, reply: FastifyReply) {
   try {
-    const { channel_id } = deleteChannelRequestParamsSchema.parse(request.params);
+    const { channel_id } = disableChannelRequestParamsSchema.parse(request.params);
     
     const channelsRepository = new TypeormChannelsRepository()
     const channel = await channelsRepository.findById(channel_id)
 
     if (!channel) return reply.code(400).send({ error: "Channel doens't exists"})
-
-    const deleteChannelUseCase = new DeleteChannelUseCase(channelsRepository)
-    await deleteChannelUseCase.execute(channel_id)
 
     const deleteChannelCollectJobService = new DeleteChannelCollectJobService()
     await deleteChannelCollectJobService.execute(channel_id, !!channel.is_reference)
