@@ -4,15 +4,64 @@ import { env } from '@/config/env';
 
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
-import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod';
+import {
+  jsonSchemaTransform,
+  serializerCompiler,
+  validatorCompiler,
+  ZodTypeProvider
+} from 'fastify-type-provider-zod';
 
-const server = Fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
+const server = Fastify({
+  logger: true,
+  ajv: {
+    customOptions: {
+      removeAdditional: 'all',
+      coerceTypes: true,
+      useDefaults: true
+    }
+  }
+}).withTypeProvider<ZodTypeProvider>();
 
 server.setValidatorCompiler(validatorCompiler);
 server.setSerializerCompiler(serializerCompiler);
 
-server.register(fastifySwagger);
-server.register(fastifySwaggerUi, { routePrefix: '/docs' });
+server.register(fastifySwagger, {
+  openapi: {
+    info: {
+      title: 'Performance Dashboard API',
+      description: 'API for collecting and analyzing performance metrics',
+      version: '1.0.0',
+      contact: {
+        name: 'Autoforce',
+        email: 'desenvolvimento@autoforce.com.br'
+      }
+    },
+    servers: [
+      {
+        url: `http://localhost:${env.API_PORT}`,
+        description: 'Local development server'
+      },
+      {
+        url: 'https://api-staging.autoforce.com.br',
+        description: 'Staging environment (work in progress)'
+      },
+      {
+        url: 'https://api.autoforce.com.br',
+        description: 'Production environment (work in progress)'
+      }
+    ],
+  },
+  transform: jsonSchemaTransform,
+});
+
+server.register(fastifySwaggerUi, {
+  routePrefix: '/docs',
+  uiConfig: {
+    docExpansion: 'list',
+    deepLinking: false,
+  }
+});
+
 server.register(appRoutes);
 
 server.listen({ port: env.API_PORT, host: '0.0.0.0' })
